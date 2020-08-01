@@ -1,2 +1,2 @@
 # RLM
-notas de aula de regressão linear mÚltipla
+notas de aula de regressão linear múltipla
