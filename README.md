@@ -9,4 +9,6 @@ Notas de aula de regressão linear múltipla
 
 ## Inferência
 
-## Ajuste do modelo
+## Análise de resíduos
+
+
