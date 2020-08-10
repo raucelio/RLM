@@ -1,21 +1,306 @@
-# Introduction {#intro}
+# Introdução a matrizes {#intro}
 
-You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).
+O estudo de Regressão Linear Múltipla requer conhecimento de notação matricial. Seguem as definições necessárias para o início do estudo desta técnica.
 
-Figures and tables with captions will be placed in `figure` and `table` environments, respectively.
+Neste texto são apresentadas definições e operações utilizadas na regressão linear múltipla, já a operação com matrizes no R será apresentada em outro capítulo.
 
-```{r nice-fig, fig.cap='Here is a nice figure!', out.width='80%', fig.asp=.75, fig.align='center'}
-par(mar = c(4, 4, .1, .1))
-plot(pressure, type = 'b', pch = 19)
-```
 
-Reference a figure by its code chunk label with the `fig:` prefix, e.g., see Figure \@ref(fig:nice-fig). Similarly, you can reference tables generated from `knitr::kable()`, e.g., see Table \@ref(tab:nice-tab).
+## Definições 
 
-```{r nice-tab, tidy=FALSE}
-knitr::kable(
-  head(iris, 20), caption = 'Here is a nice table!',
-  booktabs = TRUE
-)
-```
++ **Matriz** é um arranjo retangular de elementos organizados em linhas e em colunas. Uma matriz é denotada por uma letra maíuscula e os elementos por letras minúsculas, como em A:
 
-You can write citations, too. For example, we are using the **bookdown** package [@R-bookdown] in this sample book, which was built on top of R Markdown and **knitr** [@xie2015].
+
+\begin{equation*}
+A = 
+\begin{bmatrix}
+a_{11} & a_{12} & a_{13} & \cdots & a_{1n} \\
+a_{21} & a_{22} & a_{23} & \cdots & a_{2n} \\
+\vdots &        &        & \cdots &        \\
+a_{m1} & a_{m2} & a_{m3} & \cdots & a_{mn} \\
+\end{bmatrix}
+\end{equation*}
+
+Uma matriz com $m \times n$ elementos, ordenados em $m$ linhas e $n$ colunas, é uma matriz de ordem $m$ por $n$ e denotada por $m \times n$. Na notação $a_{ij}$ o índice $i$ indica a linha e o $j$ a coluna.
+
+**Exemplo**
+
+\begin{equation*}
+A = 
+\begin{bmatrix}
+2 & 5 & 10 \\
+3 & 6 & 12
+\end{bmatrix}
+\end{equation*}
+
+
++ **Matriz Quadrada** é caracterizada por ter o número de linhas igual ao numero de colunas, $m = n$.
+
+**Exemplo**
+
+\begin{equation*}
+A = 
+\begin{bmatrix}
+8 & 2 \\
+4 & 10
+\end{bmatrix}
+\end{equation*}
+
+
+Em uma matriz quadrada, os elementos $a_{ij}$, com $i = j$, forma a **diagonal principal**.
+
++ **Matriz diagonal** é caracterizada por ter os elementos $a_{ij} = 0$ para todo $i \neq j$.
+
+
+**Exemplo**
+
+\begin{equation*}
+A = 
+\begin{bmatrix}
+8 & 0 & 0\\
+0 & 2 & 0\\
+0 & 0 & 5
+\end{bmatrix}
+\end{equation*}
+
++ **Matriz identidade** é uma matriz diagonal, cujos elementos da diagonal principal são iguais a 1. É donotada por **I**.
+
+**Exemplo**
+
+\begin{equation*}
+I = 
+\begin{bmatrix}
+1 & 0 & 0\\
+0 & 1 & 0\\
+0 & 0 & 1
+\end{bmatrix}
+\end{equation*}
+
+Observe que $a_{ij} =0$ para $i \neq j$ e $a_{ij} = 1$ para $i = j$.
+
++ **Matriz nula** é uma matriz  cujos elementos  são iguais a 0. 
+
+**Exemplo**
+
+\begin{equation*}
+I = 
+\begin{bmatrix}
+0 & 0 & 0\\
+0 & 0 & 0
+\end{bmatrix}
+\end{equation*}
+
+Observe que $a_{ij} =0$ para $i \neq j$ e $a_{ij} = 1$ para $i = j$.
+
+
+
++ **Matriz transposta** é o resultado da troca das linhas pelas colunas e denotada por $A^T$ ou $A^\prime$.
+
+**Exemplo**
+
+Para 
+
+\begin{equation*}
+A = 
+\begin{bmatrix}
+2 & 7 \\
+0 & 1 \\
+2 & 0 
+\end{bmatrix}
+\end{equation*}
+
+a sua transposta $A^\prime$ é 
+
+\begin{equation*}
+A^\prime = 
+\begin{bmatrix}
+2 & 0 & 2\\
+7 & 1 & 0
+\end{bmatrix}
+\end{equation*}
+
++ **Matriz Simétrica** é uma **matriz quadrada** com a propriedade de ser igual a sua transposta. Assim, $A = A^\prime$.
+
+**Exemplo**
+
+\begin{equation*}
+A = 
+\begin{bmatrix}
+1 & 2 & 3\\
+2 & 1 & 4\\
+3 & 4 & 1
+\end{bmatrix}
+\end{equation*}
+
++ **Traço de matriz quadrada** é a soma dos elementos da diagonal principal:
+
+\begin{equation*}
+Traço(A)= \sum_{i,j} a_{ij} \quad \forall i = j
+\end{equation*}
+
+**Exemplo**
+
+Para 
+
+\begin{equation*}
+A = 
+\begin{bmatrix}
+7 & 2 & 3\\
+2 & 8 & 4\\
+3 & 4 & 9
+\end{bmatrix}
+\end{equation*}
+
+os elementos da **diagonal principal** são 7, 8 e 9, logo:
+
+\begin{equation*}
+Traço(A)= 7 + 8 + 9 = 24
+\end{equation*}
+
+
++ **Determinante de matriz** é um valor associado a uma matriz quadrada, A, e denotada por $|A|$.
+
++ **Matriz singular**  é a matriz A cujo determinante é  nulo, $|A| = 0$.
+
+## Operações com matrizes
+
++ **Soma e subtração** de duas matrizes **com as mesmas dimensões** podem  ser somadas ou subtraídas  adicionandos pela soma ou subtração dos elementos correspondentes.
+
+**Exemplo**
+
+\begin{equation*}
+\begin{bmatrix}
+7 & 2 & 3\\
+2 & 8 & 4\\
+3 & 4 & 9
+\end{bmatrix} + 
+\begin{bmatrix}
+3 & 8 & 7\\
+8 & 2 & 6\\
+7 & 6 & 1
+\end{bmatrix} = 
+\begin{bmatrix}
+10 & 10 & 10\\
+10 & 10 & 10\\
+10 & 10 & 10
+\end{bmatrix}
+\end{equation*}
+
++ **Produto por escalar** de uma matriz A por um escalar c é obtida multiplicando cada elemento de A pelo valor de c. 
+
+
+**Exemplo**
+
+\begin{equation*}
+5 \times
+\begin{bmatrix}
+3 & 8 & 7\\
+8 & 2 & 6\\
+7 & 6 & 1
+\end{bmatrix} = 
+\begin{bmatrix}
+15 & 40 & 35\\
+40 & 10 & 30\\
+35 & 30 & 5
+\end{bmatrix}
+\end{equation*}
+
+
++ **Produto de matrizes** só pode ser realizada caso o número de colunas da matriz que pré-multiplica for igual ao número de linhas da matriz que pós-multiplica. A operação consiste na soma dos produtos de cada elementos da linha da matriz que pré-multiplica pelos respectivos elementos da coluna da matriz que pós-multiplica. O resultado será uma matriz com o número de linhas da que pré-multiplica e com número de colunas das que pós-multiplica.
+
+
+**Exemplo**
+
+\begin{equation*}
+\begin{bmatrix}
+7 & 2 \\
+2 & 8 \\
+\end{bmatrix} + 
+\begin{bmatrix}
+3 & 8 & 7\\
+8 & 2 & 6
+\end{bmatrix} = 
+\begin{bmatrix}
+7 \times 3 + 2 \times 8 & 7 \times 8 + 2 \times 2 & 7 \times 7 + 2 \times 6\\
+2 \times 3 + 8 \times 8 & 2 \times 8 + 8 \times 8 & 2 \times 7 + 8 \times 6
+\end{bmatrix} =
+\begin{bmatrix}
+37 & 60 & 61\\
+70 & 80 & 62
+\end{bmatrix}
+\end{equation*}
+
+
++ **Matriz inversa** de  uma matriz $A$ é representada por $A^{-1}$ e aquela que 
+
+\begin{equation*}
+AA^{-1}=A^{-1}A = I
+\end{equation*}
+
+onde $I$ é a matriz identidade. Para uma matriz $A$ ter inversa é necessário e suficiente que seja **quadrada** e **não sigular**, isto é, o determinante é diferente de zero. 
+
+**Exemplo**
+
+Para 
+
+\begin{equation*}
+A = 
+\begin{bmatrix}
+2 & 1 & 1\\
+1 & 3 & 1\\
+0 & 1 & 2
+\end{bmatrix}
+\end{equation*}
+
+ a sua matriz inversa é 
+ 
+\begin{equation*}
+A^{-1} = \dfrac{1}{9}
+\begin{bmatrix}
+ 5 & -1 & -2\\
+-2 &  4 & -1\\
+ 1 & -2 &  5
+\end{bmatrix}
+\end{equation*}
+ 
+Verificando $A^{-1}A=I$
+
+\begin{equation*}
+\begin{bmatrix}
+2 & 1 & 1\\
+1 & 3 & 1\\
+0 & 1 & 2
+\end{bmatrix}
+\dfrac{1}{9}
+\begin{bmatrix}
+ 5 & -1 & -2\\
+-2 &  4 & -1\\
+ 1 & -2 &  5
+\end{bmatrix}=
+\begin{bmatrix}
+1 & 0 & 0\\
+0 & 1 & 0\\
+0 & 0 & 1
+\end{bmatrix}
+\end{equation*}
+
+## Propriedades de matrizes
+
+Considerando que as operação de multiplicação, transposição e inversão das matrizes A, B e C. São válidas as seguintes propriedades.
+
+**Multiplicação**
+
++ $ABC=A(BC)=A(BC)$
++ $A(B+C) = AB + AC$
++ $(B+C)A = BA + CA$
+
+**Transposta de Matrizes**
+
++ $\left(A^\prime\right)^\prime = A$
++ $\left(A+B\right)^\prime= A^\prime + B^\prime$
++ $\left(AB\right)^\prime = B^\prime A^\prime$
+
+**Inversão de Matrizes**
+
++ $\left(A^{-1}\right)^{-1} = A$
++ $\left(AB\right)^{-1}= B^{-1}a^{-1}$
++ $\left(A^\prime\right)^{-1} = \left(A^{-1}\right)^\prime$

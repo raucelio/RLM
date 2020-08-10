@@ -1,0 +1,411 @@
+# Matrizes no R {#cap3}
+
+O R tem uma estrutura de dados que organiza os seus valores em linhas e colunas, cujos os elemetentos devem ser do mesmo tipo. Essa estrutura é uma matriz e quando os seus valores são numéricos o seu coportamento é igual ao de uma matriz. 
+
+
+Uma **matriz** é um arranjo retangular de elementos organizados em linhas e em colunas. Uma matriz é denotada por uma letra maíuscula e os elementos por letras minúsculas, como em A:
+
+\begin{equation*}
+A = 
+\begin{bmatrix}
+a_{11} & a_{12} & a_{13} & \cdots & a_{1n} \\
+a_{21} & a_{22} & a_{23} & \cdots & a_{2n} \\
+\vdots &        &        & \cdots &        \\
+a_{m1} & a_{m2} & a_{m3} & \cdots & a_{mn} \\
+\end{bmatrix}
+\end{equation*}
+
+Uma matriz com $m \times n$ elementos, ordenados em $m$ linhas e $n$ colunas, é uma matriz de ordem $m$ por $n$ e denotada por $m \times n$. Na notação $a_{ij}$ o índice $i$ indica a linha e o $j$ a coluna.
+
+## Gerar matrizes no R
+
+
+A função `matrix()` gera uma matriz com $m \times n$ valores organizados em $m$ linhas e  $n$ colunas.  A matriz 
+
+\begin{equation*}
+A = 
+\begin{bmatrix}
+2 & 5 & 10 \\
+3 & 6 & 12
+\end{bmatrix}
+\end{equation*}
+
+pode ser gerada pelo código abaixo.
+
+```{r}
+dados <- c(2,3,5,6,10,12)
+m = 2 # Número de linhas
+n = 3 # Número de colunas 
+A <- matrix(dados, nrow = m, ncol = n)
+A
+```
+
+Observe que a matriz gerada tem $m=2$ linhas e $n=3$ colunas e os  $n\times m = 6$ valores são alocados por colunas, iniciando pela 1ª coluna da 1ª linha, esse comporpamento é o padrão e pode ser alterado pelo argumento `byrow =T`.
+
+
+Uma **matriz quadrada** é caracterizada por ter o número de linhas igual ao numero de colunas, $m = n$. Assim,
+
+\begin{equation*}
+A = 
+\begin{bmatrix}
+8 & 2 \\
+4 & 10
+\end{bmatrix}
+\end{equation*}
+
+A matriz acima é gerada por
+
+
+```{r}
+dados <- c(8,4,2,10)
+m = 2 # Número de linhas
+n = 2 # Número de colunas 
+A <- matrix(dados, nrow = m, ncol = n)
+A
+```
+
+
+Em uma matriz quadrada, os elementos $a_{ij}$, com $i = j$, forma a **diagonal principal**. Os elementos de uma diagonal podem ser obtidos pela função `diag()`.
+
+```{r}
+A <- matrix(c(2,5,5,3),2,2)
+diag(A)
+```
+
+
+Uma matriz diagonal é caracterizada por ter os elementos $a_{ij} = 0$ para todo $i \neq j$. A função `diag()`, além de obter os elementos da diagonal principal, gera uma matriz diagonal. A matriz 
+
+
+\begin{equation*}
+A = 
+\begin{bmatrix}
+8 & 0 & 0\\
+0 & 2 & 0\\
+0 & 0 & 5
+\end{bmatrix}
+\end{equation*}
+
+pode ser criada pelo código
+
+```{r}
+aux <- c(8,2,5)
+A<- diag(aux)
+A
+```
+ A **Matriz identidade** pode ser uma matriz diagonal, cujos elementos da diagonal principal são iguais a 1. A matriz
+
+\begin{equation*}
+I = 
+\begin{bmatrix}
+1 & 0 & 0\\
+0 & 1 & 0\\
+0 & 0 & 1
+\end{bmatrix}
+\end{equation*}
+
+pode ser gerada por 
+
+```{r}
+aux <- rep(1,3)
+I <- diag(aux)
+I
+```
+
+Observe que $a_{ij} =0$ para $i \neq j$ e $a_{ij} = 1$ para $i = j$.
+
+A **Matriz nula** tem todos os elementos  iguais a 0. Por exemplo 
+
+\begin{equation*}
+B = 
+\begin{bmatrix}
+0 & 0 & 0\\
+0 & 0 & 0
+\end{bmatrix}
+\end{equation*}
+
+é gerada pela função `matrix()` com o valor 0 (zero) sendo o único para preencher todas as possições da matriz.
+
+```{r}
+B <- matrix (0, nrow=2, ncol=3)
+B
+```
+
+## Transposta de uma matriz
+
+**Matriz transposta** é o resultado da troca das linhas pelas colunas e denotada por $A^T$ ou $A^\prime$.
+
+Para 
+
+\begin{equation*}
+A = 
+\begin{bmatrix}
+2 & 7 \\
+0 & 1 \\
+2 & 0 
+\end{bmatrix}
+\end{equation*}
+
+a sua transposta $A^\prime$ é 
+
+\begin{equation*}
+A^\prime = 
+\begin{bmatrix}
+2 & 0 & 2\\
+7 & 1 & 0
+\end{bmatrix}
+\end{equation*}
+
+A função `t()` gera a matriz transposta de uma matriz. Observe o códio seguinte
+
+```{r}
+aux <- c(2,0,2,7,1,0)
+
+A <- matrix (aux,nrow=3,ncol=2)
+
+tranposta_A <- t(A)
+
+A
+
+tranposta_A
+
+```
+
+## Traço de uma matriz
+
++ **Traço de matriz quadrada** é a soma dos elementos da diagonal principal de uma matriz:
+
+\begin{equation*}
+Traço(A)= \sum_{i,j} a_{ij} \quad \forall i = j
+\end{equation*}
+
+Para 
+
+\begin{equation*}
+A = 
+\begin{bmatrix}
+7 & 2 & 3\\
+2 & 8 & 4\\
+3 & 4 & 9
+\end{bmatrix}
+\end{equation*}
+
+os elementos da **diagonal principal** são 7, 8 e 9, logo:
+
+\begin{equation*}
+Traço(A)= 7 + 8 + 9 = 24
+\end{equation*}
+
+O traço de A  pode ser obtido por meio das funções `diag()` e `sum()` como abaixo.
+
+```{r}
+aux<-c(7,2,3,2,8,4,3,4,9)
+A<- matrix(aux,3,3)
+sum(diag(A))
+```
+
+## Determinante de uma matriz
+
+O **Determinante de matriz** é um valor associado a uma matriz quadrada, A, e denotada por $|A|$. A função `det()` calcula o determinante de uma matriz.
+ 
+```{r}
+aux<-c(7,2,3,2,8,4,3,4,9)
+A<- matrix(aux,3,3)
+det(A)
+``` 
+
+A **Matriz singular**  é a matriz A cujo determinante é  nulo, $|A| = 0$. A matriz B  é singular
+
+```{r}
+aux<-c(7,2,3,14,4,6,3,4,9)
+A<- matrix(aux,3,3)
+det(A)
+``` 
+**Propriedades do determinante:**
+
++ O determinante de uma matriz quadrada A é igual ao determinante da sua transposta: $|A| = |A^\prime|$;
++ Caso exista uma linha ou coluna na matriz igual a zero, o determinante é zero;
++ Caso exista duas filas paralelas, iguais ou proporcional, o determinante é zero;
++ O determinante do produto de um número real k por uma matriz A é igual ao produto de k elevado a n, onde n é o número de linhas de A, pelo determinante de A: $|k . A| = k^n . |A|$;
++ Caso os elementos abaixo ou acima da diagonal principal forem nulos, o determinante será o produto dos elementos da diagonal principal;
++ Teorema de Binet: Seja A e B matrizes quadradas de ordem n, o determinante do produto de A por B é igual ao produto dos determinantes de A e B: $|AB|=|A|.|B|$.
+
+## Matriz inversa
+
+A **Matriz inversa** de  uma matriz $A$ é representada por $A^{-1}$ é aquela que 
+
+\begin{equation*}
+AA^{-1}=A^{-1}A = I
+\end{equation*}
+
+onde $I$ é a matriz identidade. Para uma matriz $A$ ter inversa é necessário e suficiente que seja **quadrada** e **não sigular**, isto é, o determinante é diferente de zero. 
+
+Para 
+
+\begin{equation*}
+A = 
+\begin{bmatrix}
+ 2  & -5\\
+-1  &  3
+\end{bmatrix}
+\end{equation*}
+
+ a sua matriz inversa é 
+ 
+\begin{equation*}
+A^{-1} = 
+\begin{bmatrix}
+ 3 & 5\\
+ 1 & 2
+\end{bmatrix}
+\end{equation*}
+ 
+Verificando $A^{-1}A=I$
+
+\begin{equation*}
+\begin{bmatrix}
+ 2 & -5\\
+-1 &  3
+\end{bmatrix}
+\begin{bmatrix}
+ 3 & 5\\
+ 1 & 2
+\end{bmatrix}=
+\begin{bmatrix}
+1 & 0 \\
+0 & 1 
+\end{bmatrix}
+\end{equation*}
+
+A função `solve()` é usada para resulver sistemas de equações lineares e em uma de suas chamadas retornar a matriz inversa do seu argumento.
+
+
+```{r}
+A = matrix(c(2,-1,-5,3),2,2)
+inv_A = solve(A)
+inv_A
+```
+para verificar a relaçao entre a sua matriz e a suam matriz inversa 
+
+```{r}
+A %*% inv_A
+```
+
+
+
+## Operações com matrizes no R
+
+A **Soma ou subtração** de duas matrizes **com as mesmas dimensões** é obtida pela soma/subtração dos elementos correspondentes.
+
+O operador para essas operações são `+` e `-`.
+
+\begin{equation*}
+\begin{bmatrix}
+7 & 2 & 3\\
+2 & 8 & 4\\
+3 & 4 & 9
+\end{bmatrix} + 
+\begin{bmatrix}
+3 & 8 & 7\\
+8 & 2 & 6\\
+7 & 6 & 1
+\end{bmatrix} = 
+\begin{bmatrix}
+10 & 10 & 10\\
+10 & 10 & 10\\
+10 & 10 & 10
+\end{bmatrix}
+\end{equation*}
+
+```{r}
+A <- matrix (c(7,2,3,2,8,4,3,4,9),3,3)
+B <- matrix (c(3,8,7,8,2,6,7,6,1),3,3)
+A
+B
+A+B
+```
+
+O **Produto por escalar** de uma matriz A por um escalar c é obtida multiplicando cada elemento de A pelo valor de $c \in \mathbf{R}$. 
+
+O operador para essa operação `*`.
+
+\begin{equation*}
+5 \times
+\begin{bmatrix}
+3 & 8 & 7\\
+8 & 2 & 6\\
+7 & 6 & 1
+\end{bmatrix} = 
+\begin{bmatrix}
+15 & 40 & 35\\
+40 & 10 & 30\\
+35 & 30 & 5
+\end{bmatrix}
+\end{equation*}
+
+```{r}
+A <- matrix (c(3,8,7,8,2,6,7,6,1),3,3)
+A
+5*A
+```
+
+Na situação quando duas matrizes A e B tem o mesmo número de linhas e colunas o operador `*` executa o produto elemento a elemento.
+
+\begin{equation*}
+\begin{bmatrix}
+7 & 2 & 3\\
+2 & 8 & 4\\
+3 & 4 & 9
+\end{bmatrix} \circ 
+\begin{bmatrix}
+3 & 8 & 7\\
+8 & 2 & 6\\
+7 & 6 & 1
+\end{bmatrix} =
+\begin{bmatrix}
+21 & 16 & 21\\
+16 & 64 & 24\\
+21 & 24 & 9
+\end{bmatrix}
+\end{equation*}
+
+No R seria
+
+```{r}
+A <- matrix(c(7,2,3,2,8,2,3,4,8),3,3)
+B <- matrix(c(3,8,7,8,2,6,7,6,1),3,3)
+A
+B
+A*B
+```
+
+
+
+
+O **Produto de matrizes** só pode ser realizada caso o número de colunas da matriz que pré-multiplica for igual ao número de linhas da matriz que pós-multiplica. A operação consiste na soma dos produtos de cada elementos da linha da matriz que pré-multiplica pelos respectivos elementos da coluna da matriz que pós-multiplica. O resultado será uma matriz com o número de linhas da que pré-multiplica e com número de colunas das que pós-multiplica.
+
+
+O operador para essas operações são `%*%`.
+
+\begin{equation*}
+\begin{bmatrix}
+7 & 2 \\
+2 & 8 \\
+\end{bmatrix} + 
+\begin{bmatrix}
+3 & 8 & 7\\
+8 & 2 & 6
+\end{bmatrix} = 
+\begin{bmatrix}
+37 & 60 & 61\\
+70 & 80 & 62
+\end{bmatrix}
+\end{equation*}
+
+```{r}
+A <- matrix(c(7,2,2,8),2,2)
+B <- matrix(c(3,8,8,2,7,6),nrow = 2, ncol =3)
+A
+B
+A%*%B
+```
+

@@ -1,3 +1,139 @@
-# Literature
+# Regressão Linear Múltipla
 
-Here is a review of existing methods.
+## Modelo de Regressão Linear Múltipla
+
+Seja a relação linear entre uma variável dependente Y e p variáveis independentes X. Então, o modelo estatístico de uma regressão linear, nos parâmetros, múltipla com p variáveis independentes e um termo aleatório, $\epsilon$, é dado por
+
+\begin{equation*}
+Y_i = \beta_0 + \beta_1X_{1i} + \beta_2X_{2i} + \cdots +
++ \beta_pX_{pi} + \epsilon_i
+\end{equation*}
+
+com $i=1,2,\ldots,n$. De forma alternativa, tem-se
+
+\begin{equation*}
+Y_i = \beta_0 + \sum_{j=1}^p\beta_j X_{ji} + \epsilon_i
+\end{equation*}.
+
+Uma outra forma de expressar as relações, fazendo $i=1,2,\ldots, n$, surgem as equações:
+
+\begin{align}
+Y_1 &= \beta_0 + \beta_1 X_{11} + \beta_2 X_{21} + \cdots + \beta_p X_{p1}\\
+Y_2 &= \beta_0 + \beta_1 X_{12} + \beta_2 X_{22} + \cdots + \beta_p X_{p2}\\
+Y_3 &= \beta_0 + \beta_1 X_{13} + \beta_2 X_{23} + \cdots + \beta_p X_{p3}\\
+\vdots & \\
+Y_n &= \beta_0 + \beta_1 X_{1n} + \beta_2 X_{2n} + \cdots + \beta_p X_{pn}
+\end{align}
+
+Em notação matricial, esse sistema de equações pode ser expressa por
+
+\begin{equation*}
+Y = X\beta + \epsilon
+\end{equation*}
+
+que de forma explícita é
+
+\begin{equation*}
+\begin{bmatrix}
+Y_1\\
+Y_2\\
+\vdots \\
+Y_n
+\end{bmatrix}=
+\begin{bmatrix}
+1 & X_{11} & X_{12} & \cdots & X_{1p} \\
+1 & X_{21} & X_{22} & \cdots & X_{2p} \\
+\vdots &        & \cdots &            \\
+1 & X_{n1} & X_{n2} & \cdots & X_{np} \\
+\end{bmatrix}
+\begin{bmatrix}
+\beta_0\\
+\beta_1\\
+\beta_2\\
+\vdots \\
+\beta_p
+\end{bmatrix}+
+\begin{bmatrix}
+\epsilon_0\\
+\epsilon_1\\
+\epsilon_2\\
+\vdots \\
+\epsilon_p
+\end{bmatrix}
+\end{equation*}
+
+Sendo 
+
++ n o número de observações e p a quantidade de variáveis explicativas;
++ X uma matriz $n \times (p+1)$;
++ Y um vetor $n \times 1$; 
++ $\beta$ um vetor $(p+1) \times 1$; e
++ $\epsilon$ um vetor $n \times 1$.
+
+O problema consiste em obter o modelo ajustado:
+
+\begin{equation*}
+\hat{Y}_i = \hat{\beta}_0 + \hat{\beta}_1X_{1i} + \hat{\beta}_2X_{2i} + \cdots +
++ \hat{\beta}_p X_{pi}
+\end{equation*}
+
+É, para isso, deve-se obter o vetor $\beta$. Admita-se as seguintes pressuposições:
+
+1. A variável dependente $Y$ é a função linear das variáveis independentes X.
+2. Os valores das variáveis independentes são fixos.
+3. A média dos erros é nula, isto é, $E\left(\epsilon_i\right)=0$.
+4. Os erros são homoscedásticos, assim, $V\left(\epsilon_i\right)=\sigma^2$.
+5. Os erros são não correlacionados entre si, isto é, $E\left(\epsilon_i\epsilon_j\right)=0$, para $i \ne j$.
+6. Os erros têm distribuição normal.
+
+Considere algumas consequências:
+
++ Combine (4) e (5) para $E\left(\epsilon^\prime\epsilon\right)=I\sigma^2$.
+
++ As pressuposições (1), (2) e (3) são necessárias para demostrar que os estimadores de Mínimos Quadrados  são **não tendenciosos**.
+
++ As pressuposições de (1) a (5) permitem demonstrar que tais estimadores são **não tendenciosos** e de  **variância mínima**.
+
++ A pressuposição (6) é necessária para construção de teste de hipóteses e de intervalos de confiânça para os parãmetros.
+
+## Estimadores dos parâmetros
+
+O Método dos Mínimos Quadrados consiste em adotar como estimativas dos parâmetros os valores que minimiza a soma de quadrados dos desvios.
+
+O modelo $Y = X\beta+\epsilon$ têm $\epsilon = Y - X\beta$, então  a soma dos quadrados dos desvios  é dada por 
+
+\begin{align}
+Z &= \epsilon^\prime\epsilon \\
+  &= \left(Y-X\beta\right)^\prime\left(Y-X\beta\right)\\
+  &= Y^\prime Y - Y^\prime X\beta - \beta^\prime X^\prime Y + \beta^\prime X^\prime X \beta
+\end{align}
+
+Como $Y^\prime X\beta = \beta^\prime X^\prime Y$ são iguais, então
+
+\begin{align}
+Z &= Y^\prime Y -2 \beta^\prime X^\prime Y + \beta^\prime X^\prime X \beta
+\end{align}
+
+A função $Z$ apresenta seu valor mínimo para $\beta$ que tornem a diferencial de $Z$ e igualar a 0 (zero).
+
+\begin{equation*}
+\dfrac{\partial Z}{\partial \beta}= -2\left(\partial\beta^\prime\right) X^\prime Y + \left(\partial\beta^\prime\right) X^\prime X\hat{\beta} + \hat{\beta}^\prime X^\prime X\left(\partial \beta\right) = 0
+\end{equation*}
+
+Uma vez que $\left(\partial\beta^\prime\right)X^\prime X\hat{\beta} =\hat{\beta}^\prime X^\prime X\left(\partial \beta\right)$ tem-se 
+
+\begin{align}
+\dfrac{\partial Z}{\partial \beta}&= -2\left(\partial\beta^\prime\right) X^\prime Y + 2\left(\partial\beta^\prime\right) X^\prime X\hat{\beta} \\
+  &=2\left(\partial\beta^\prime\right)\left[X^\prime X\hat{\beta}  -X^\prime Y\right]
+\end{align}
+
+Assim, para definir $\hat{\beta}$ faça
+
+\begin{equation*}
+X^\prime X\hat{\beta}-X^\prime Y = 0
+\end{equation*}
+
+Logo,
+\begin{equation*}
+\hat{\beta} = \left(X^\prime X\right)^{-1}X^\prime Y.
+\end{equation*}
