@@ -1,0 +1,1319 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{book}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Regressão Linear Múltipla},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs}
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+\usepackage{booktabs}
+\usepackage[]{natbib}
+\bibliographystyle{apalike}
+
+\title{Regressão Linear Múltipla}
+\author{}
+\date{\vspace{-2.5em}}
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{1}
+\tableofcontents
+}
+\hypertarget{introduuxe7uxe3o}{%
+\chapter{Introdução}\label{introduuxe7uxe3o}}
+
+\hypertarget{intro}{%
+\chapter{Introdução a matrizes}\label{intro}}
+
+O estudo de Regressão Linear Múltipla requer conhecimento de notação matricial. Seguem as definições necessárias para o início do estudo desta técnica.
+
+Neste texto são apresentadas definições e operações utilizadas na regressão linear múltipla, já a operação com matrizes no R será apresentada em outro capítulo.
+
+\hypertarget{definiuxe7uxf5es}{%
+\section{Definições}\label{definiuxe7uxf5es}}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Matriz} é um arranjo retangular de elementos organizados em linhas e em colunas. Uma matriz é denotada por uma letra maíuscula e os elementos por letras minúsculas, como em A:
+\end{itemize}
+
+\begin{equation*}
+A = 
+\begin{bmatrix}
+a_{11} & a_{12} & a_{13} & \cdots & a_{1n} \\
+a_{21} & a_{22} & a_{23} & \cdots & a_{2n} \\
+\vdots &        &        & \cdots &        \\
+a_{m1} & a_{m2} & a_{m3} & \cdots & a_{mn} \\
+\end{bmatrix}
+\end{equation*}
+
+Uma matriz com \(m \times n\) elementos, ordenados em \(m\) linhas e \(n\) colunas, é uma matriz de ordem \(m\) por \(n\) e denotada por \(m \times n\). Na notação \(a_{ij}\) o índice \(i\) indica a linha e o \(j\) a coluna.
+
+\textbf{Exemplo}
+
+\begin{equation*}
+A = 
+\begin{bmatrix}
+2 & 5 & 10 \\
+3 & 6 & 12
+\end{bmatrix}
+\end{equation*}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Matriz Quadrada} é caracterizada por ter o número de linhas igual ao numero de colunas, \(m = n\).
+\end{itemize}
+
+\textbf{Exemplo}
+
+\begin{equation*}
+A = 
+\begin{bmatrix}
+8 & 2 \\
+4 & 10
+\end{bmatrix}
+\end{equation*}
+
+Em uma matriz quadrada, os elementos \(a_{ij}\), com \(i = j\), forma a \textbf{diagonal principal}.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Matriz diagonal} é caracterizada por ter os elementos \(a_{ij} = 0\) para todo \(i \neq j\).
+\end{itemize}
+
+\textbf{Exemplo}
+
+\begin{equation*}
+A = 
+\begin{bmatrix}
+8 & 0 & 0\\
+0 & 2 & 0\\
+0 & 0 & 5
+\end{bmatrix}
+\end{equation*}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Matriz identidade} é uma matriz diagonal, cujos elementos da diagonal principal são iguais a 1. É donotada por \textbf{I}.
+\end{itemize}
+
+\textbf{Exemplo}
+
+\begin{equation*}
+I = 
+\begin{bmatrix}
+1 & 0 & 0\\
+0 & 1 & 0\\
+0 & 0 & 1
+\end{bmatrix}
+\end{equation*}
+
+Observe que \(a_{ij} =0\) para \(i \neq j\) e \(a_{ij} = 1\) para \(i = j\).
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Matriz nula} é uma matriz cujos elementos são iguais a 0.
+\end{itemize}
+
+\textbf{Exemplo}
+
+\begin{equation*}
+I = 
+\begin{bmatrix}
+0 & 0 & 0\\
+0 & 0 & 0
+\end{bmatrix}
+\end{equation*}
+
+Observe que \(a_{ij} =0\) para \(i \neq j\) e \(a_{ij} = 1\) para \(i = j\).
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Matriz transposta} é o resultado da troca das linhas pelas colunas e denotada por \(A^T\) ou \(A^\prime\).
+\end{itemize}
+
+\textbf{Exemplo}
+
+Para
+
+\begin{equation*}
+A = 
+\begin{bmatrix}
+2 & 7 \\
+0 & 1 \\
+2 & 0 
+\end{bmatrix}
+\end{equation*}
+
+a sua transposta \(A^\prime\) é
+
+\begin{equation*}
+A^\prime = 
+\begin{bmatrix}
+2 & 0 & 2\\
+7 & 1 & 0
+\end{bmatrix}
+\end{equation*}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Matriz Simétrica} é uma \textbf{matriz quadrada} com a propriedade de ser igual a sua transposta. Assim, \(A = A^\prime\).
+\end{itemize}
+
+\textbf{Exemplo}
+
+\begin{equation*}
+A = 
+\begin{bmatrix}
+1 & 2 & 3\\
+2 & 1 & 4\\
+3 & 4 & 1
+\end{bmatrix}
+\end{equation*}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Traço de matriz quadrada} é a soma dos elementos da diagonal principal:
+\end{itemize}
+
+\begin{equation*}
+Traço(A)= \sum_{i,j} a_{ij} \quad \forall i = j
+\end{equation*}
+
+\textbf{Exemplo}
+
+Para
+
+\begin{equation*}
+A = 
+\begin{bmatrix}
+7 & 2 & 3\\
+2 & 8 & 4\\
+3 & 4 & 9
+\end{bmatrix}
+\end{equation*}
+
+os elementos da \textbf{diagonal principal} são 7, 8 e 9, logo:
+
+\begin{equation*}
+Traço(A)= 7 + 8 + 9 = 24
+\end{equation*}
+
+\begin{itemize}
+\item
+  \textbf{Determinante de matriz} é um valor associado a uma matriz quadrada, A, e denotada por \(|A|\).
+\item
+  \textbf{Matriz singular} é a matriz A cujo determinante é nulo, \(|A| = 0\).
+\end{itemize}
+
+\hypertarget{operauxe7uxf5es-com-matrizes}{%
+\section{Operações com matrizes}\label{operauxe7uxf5es-com-matrizes}}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Soma e subtração} de duas matrizes \textbf{com as mesmas dimensões} podem ser somadas ou subtraídas adicionandos pela soma ou subtração dos elementos correspondentes.
+\end{itemize}
+
+\textbf{Exemplo}
+
+\begin{equation*}
+\begin{bmatrix}
+7 & 2 & 3\\
+2 & 8 & 4\\
+3 & 4 & 9
+\end{bmatrix} + 
+\begin{bmatrix}
+3 & 8 & 7\\
+8 & 2 & 6\\
+7 & 6 & 1
+\end{bmatrix} = 
+\begin{bmatrix}
+10 & 10 & 10\\
+10 & 10 & 10\\
+10 & 10 & 10
+\end{bmatrix}
+\end{equation*}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Produto por escalar} de uma matriz A por um escalar c é obtida multiplicando cada elemento de A pelo valor de c.~
+\end{itemize}
+
+\textbf{Exemplo}
+
+\begin{equation*}
+5 \times
+\begin{bmatrix}
+3 & 8 & 7\\
+8 & 2 & 6\\
+7 & 6 & 1
+\end{bmatrix} = 
+\begin{bmatrix}
+15 & 40 & 35\\
+40 & 10 & 30\\
+35 & 30 & 5
+\end{bmatrix}
+\end{equation*}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Produto de matrizes} só pode ser realizada caso o número de colunas da matriz que pré-multiplica for igual ao número de linhas da matriz que pós-multiplica. A operação consiste na soma dos produtos de cada elementos da linha da matriz que pré-multiplica pelos respectivos elementos da coluna da matriz que pós-multiplica. O resultado será uma matriz com o número de linhas da que pré-multiplica e com número de colunas das que pós-multiplica.
+\end{itemize}
+
+\textbf{Exemplo}
+
+\begin{equation*}
+\begin{bmatrix}
+7 & 2 \\
+2 & 8 \\
+\end{bmatrix} + 
+\begin{bmatrix}
+3 & 8 & 7\\
+8 & 2 & 6
+\end{bmatrix} = 
+\begin{bmatrix}
+7 \times 3 + 2 \times 8 & 7 \times 8 + 2 \times 2 & 7 \times 7 + 2 \times 6\\
+2 \times 3 + 8 \times 8 & 2 \times 8 + 8 \times 8 & 2 \times 7 + 8 \times 6
+\end{bmatrix} =
+\begin{bmatrix}
+37 & 60 & 61\\
+70 & 80 & 62
+\end{bmatrix}
+\end{equation*}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Matriz inversa} de uma matriz \(A\) é representada por \(A^{-1}\) e aquela que
+\end{itemize}
+
+\begin{equation*}
+AA^{-1}=A^{-1}A = I
+\end{equation*}
+
+onde \(I\) é a matriz identidade. Para uma matriz \(A\) ter inversa é necessário e suficiente que seja \textbf{quadrada} e \textbf{não sigular}, isto é, o determinante é diferente de zero.
+
+\textbf{Exemplo}
+
+Para
+
+\begin{equation*}
+A = 
+\begin{bmatrix}
+2 & 1 & 1\\
+1 & 3 & 1\\
+0 & 1 & 2
+\end{bmatrix}
+\end{equation*}
+
+a sua matriz inversa é
+
+\begin{equation*}
+A^{-1} = \dfrac{1}{9}
+\begin{bmatrix}
+ 5 & -1 & -2\\
+-2 &  4 & -1\\
+ 1 & -2 &  5
+\end{bmatrix}
+\end{equation*}
+
+Verificando \(A^{-1}A=I\)
+
+\begin{equation*}
+\begin{bmatrix}
+2 & 1 & 1\\
+1 & 3 & 1\\
+0 & 1 & 2
+\end{bmatrix}
+\dfrac{1}{9}
+\begin{bmatrix}
+ 5 & -1 & -2\\
+-2 &  4 & -1\\
+ 1 & -2 &  5
+\end{bmatrix}=
+\begin{bmatrix}
+1 & 0 & 0\\
+0 & 1 & 0\\
+0 & 0 & 1
+\end{bmatrix}
+\end{equation*}
+
+\hypertarget{propriedades-de-matrizes}{%
+\section{Propriedades de matrizes}\label{propriedades-de-matrizes}}
+
+Considerando que as operação de multiplicação, transposição e inversão das matrizes A, B e C. São válidas as seguintes propriedades.
+
+\textbf{Multiplicação}
+
+\begin{itemize}
+\tightlist
+\item
+  \(ABC=A(BC)=A(BC)\)
+\item
+  \(A(B+C) = AB + AC\)
+\item
+  \((B+C)A = BA + CA\)
+\end{itemize}
+
+\textbf{Transposta de Matrizes}
+
+\begin{itemize}
+\tightlist
+\item
+  \(\left(A^\prime\right)^\prime = A\)
+\item
+  \(\left(A+B\right)^\prime= A^\prime + B^\prime\)
+\item
+  \(\left(AB\right)^\prime = B^\prime A^\prime\)
+\end{itemize}
+
+\textbf{Inversão de Matrizes}
+
+\begin{itemize}
+\tightlist
+\item
+  \(\left(A^{-1}\right)^{-1} = A\)
+\item
+  \(\left(AB\right)^{-1}= B^{-1}a^{-1}\)
+\item
+  \(\left(A^\prime\right)^{-1} = \left(A^{-1}\right)^\prime\)
+\end{itemize}
+
+\hypertarget{cap3}{%
+\chapter{Matrizes no R}\label{cap3}}
+
+O R tem uma estrutura de dados que organiza os seus valores em linhas e colunas, cujos os elemetentos devem ser do mesmo tipo. Essa estrutura é uma matriz e quando os seus valores são numéricos o seu coportamento é igual ao de uma matriz.
+
+Uma \textbf{matriz} é um arranjo retangular de elementos organizados em linhas e em colunas. Uma matriz é denotada por uma letra maíuscula e os elementos por letras minúsculas, como em A:
+
+\begin{equation*}
+A = 
+\begin{bmatrix}
+a_{11} & a_{12} & a_{13} & \cdots & a_{1n} \\
+a_{21} & a_{22} & a_{23} & \cdots & a_{2n} \\
+\vdots &        &        & \cdots &        \\
+a_{m1} & a_{m2} & a_{m3} & \cdots & a_{mn} \\
+\end{bmatrix}
+\end{equation*}
+
+Uma matriz com \(m \times n\) elementos, ordenados em \(m\) linhas e \(n\) colunas, é uma matriz de ordem \(m\) por \(n\) e denotada por \(m \times n\). Na notação \(a_{ij}\) o índice \(i\) indica a linha e o \(j\) a coluna.
+
+\hypertarget{gerar-matrizes-no-r}{%
+\section{Gerar matrizes no R}\label{gerar-matrizes-no-r}}
+
+A função \texttt{matrix()} gera uma matriz com \(m \times n\) valores organizados em \(m\) linhas e \(n\) colunas. A matriz
+
+\begin{equation*}
+A = 
+\begin{bmatrix}
+2 & 5 & 10 \\
+3 & 6 & 12
+\end{bmatrix}
+\end{equation*}
+
+pode ser gerada pelo código abaixo.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dados \textless{}{-}}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{10}\NormalTok{,}\DecValTok{12}\NormalTok{)}
+\NormalTok{m =}\StringTok{ }\DecValTok{2} \CommentTok{\# Número de linhas}
+\NormalTok{n =}\StringTok{ }\DecValTok{3} \CommentTok{\# Número de colunas }
+\NormalTok{A \textless{}{-}}\StringTok{ }\KeywordTok{matrix}\NormalTok{(dados, }\DataTypeTok{nrow =}\NormalTok{ m, }\DataTypeTok{ncol =}\NormalTok{ n)}
+\NormalTok{A}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2] [,3]
+## [1,]    2    5   10
+## [2,]    3    6   12
+\end{verbatim}
+
+Observe que a matriz gerada tem \(m=2\) linhas e \(n=3\) colunas e os \(n\times m = 6\) valores são alocados por colunas, iniciando pela 1ª coluna da 1ª linha, esse comporpamento é o padrão e pode ser alterado pelo argumento \texttt{byrow\ =T}.
+
+Uma \textbf{matriz quadrada} é caracterizada por ter o número de linhas igual ao numero de colunas, \(m = n\). Assim,
+
+\begin{equation*}
+A = 
+\begin{bmatrix}
+8 & 2 \\
+4 & 10
+\end{bmatrix}
+\end{equation*}
+
+A matriz acima é gerada por
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dados \textless{}{-}}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{8}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{10}\NormalTok{)}
+\NormalTok{m =}\StringTok{ }\DecValTok{2} \CommentTok{\# Número de linhas}
+\NormalTok{n =}\StringTok{ }\DecValTok{2} \CommentTok{\# Número de colunas }
+\NormalTok{A \textless{}{-}}\StringTok{ }\KeywordTok{matrix}\NormalTok{(dados, }\DataTypeTok{nrow =}\NormalTok{ m, }\DataTypeTok{ncol =}\NormalTok{ n)}
+\NormalTok{A}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2]
+## [1,]    8    2
+## [2,]    4   10
+\end{verbatim}
+
+Em uma matriz quadrada, os elementos \(a_{ij}\), com \(i = j\), forma a \textbf{diagonal principal}. Os elementos de uma diagonal podem ser obtidos pela função \texttt{diag()}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{A \textless{}{-}}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{3}\NormalTok{),}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{)}
+\KeywordTok{diag}\NormalTok{(A)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2 3
+\end{verbatim}
+
+Uma matriz diagonal é caracterizada por ter os elementos \(a_{ij} = 0\) para todo \(i \neq j\). A função \texttt{diag()}, além de obter os elementos da diagonal principal, gera uma matriz diagonal. A matriz
+
+\begin{equation*}
+A = 
+\begin{bmatrix}
+8 & 0 & 0\\
+0 & 2 & 0\\
+0 & 0 & 5
+\end{bmatrix}
+\end{equation*}
+
+pode ser criada pelo código
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{aux \textless{}{-}}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{8}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{5}\NormalTok{)}
+\NormalTok{A\textless{}{-}}\StringTok{ }\KeywordTok{diag}\NormalTok{(aux)}
+\NormalTok{A}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2] [,3]
+## [1,]    8    0    0
+## [2,]    0    2    0
+## [3,]    0    0    5
+\end{verbatim}
+
+A \textbf{Matriz identidade} pode ser uma matriz diagonal, cujos elementos da diagonal principal são iguais a 1. A matriz
+
+\begin{equation*}
+I = 
+\begin{bmatrix}
+1 & 0 & 0\\
+0 & 1 & 0\\
+0 & 0 & 1
+\end{bmatrix}
+\end{equation*}
+
+pode ser gerada por
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{aux \textless{}{-}}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+\NormalTok{I \textless{}{-}}\StringTok{ }\KeywordTok{diag}\NormalTok{(aux)}
+\NormalTok{I}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2] [,3]
+## [1,]    1    0    0
+## [2,]    0    1    0
+## [3,]    0    0    1
+\end{verbatim}
+
+Observe que \(a_{ij} =0\) para \(i \neq j\) e \(a_{ij} = 1\) para \(i = j\).
+
+A \textbf{Matriz nula} tem todos os elementos iguais a 0. Por exemplo
+
+\begin{equation*}
+B = 
+\begin{bmatrix}
+0 & 0 & 0\\
+0 & 0 & 0
+\end{bmatrix}
+\end{equation*}
+
+é gerada pela função \texttt{matrix()} com o valor 0 (zero) sendo o único para preencher todas as possições da matriz.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{B \textless{}{-}}\StringTok{ }\KeywordTok{matrix}\NormalTok{ (}\DecValTok{0}\NormalTok{, }\DataTypeTok{nrow=}\DecValTok{2}\NormalTok{, }\DataTypeTok{ncol=}\DecValTok{3}\NormalTok{)}
+\NormalTok{B}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2] [,3]
+## [1,]    0    0    0
+## [2,]    0    0    0
+\end{verbatim}
+
+\hypertarget{transposta-de-uma-matriz}{%
+\section{Transposta de uma matriz}\label{transposta-de-uma-matriz}}
+
+\textbf{Matriz transposta} é o resultado da troca das linhas pelas colunas e denotada por \(A^T\) ou \(A^\prime\).
+
+Para
+
+\begin{equation*}
+A = 
+\begin{bmatrix}
+2 & 7 \\
+0 & 1 \\
+2 & 0 
+\end{bmatrix}
+\end{equation*}
+
+a sua transposta \(A^\prime\) é
+
+\begin{equation*}
+A^\prime = 
+\begin{bmatrix}
+2 & 0 & 2\\
+7 & 1 & 0
+\end{bmatrix}
+\end{equation*}
+
+A função \texttt{t()} gera a matriz transposta de uma matriz. Observe o códio seguinte
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{aux \textless{}{-}}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{7}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{)}
+
+\NormalTok{A \textless{}{-}}\StringTok{ }\KeywordTok{matrix}\NormalTok{ (aux,}\DataTypeTok{nrow=}\DecValTok{3}\NormalTok{,}\DataTypeTok{ncol=}\DecValTok{2}\NormalTok{)}
+
+\NormalTok{tranposta\_A \textless{}{-}}\StringTok{ }\KeywordTok{t}\NormalTok{(A)}
+
+\NormalTok{A}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2]
+## [1,]    2    7
+## [2,]    0    1
+## [3,]    2    0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tranposta\_A}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2] [,3]
+## [1,]    2    0    2
+## [2,]    7    1    0
+\end{verbatim}
+
+\hypertarget{trauxe7o-de-uma-matriz}{%
+\section{Traço de uma matriz}\label{trauxe7o-de-uma-matriz}}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Traço de matriz quadrada} é a soma dos elementos da diagonal principal de uma matriz:
+\end{itemize}
+
+\begin{equation*}
+Traço(A)= \sum_{i,j} a_{ij} \quad \forall i = j
+\end{equation*}
+
+Para
+
+\begin{equation*}
+A = 
+\begin{bmatrix}
+7 & 2 & 3\\
+2 & 8 & 4\\
+3 & 4 & 9
+\end{bmatrix}
+\end{equation*}
+
+os elementos da \textbf{diagonal principal} são 7, 8 e 9, logo:
+
+\begin{equation*}
+Traço(A)= 7 + 8 + 9 = 24
+\end{equation*}
+
+O traço de A pode ser obtido por meio das funções \texttt{diag()} e \texttt{sum()} como abaixo.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{aux\textless{}{-}}\KeywordTok{c}\NormalTok{(}\DecValTok{7}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{9}\NormalTok{)}
+\NormalTok{A\textless{}{-}}\StringTok{ }\KeywordTok{matrix}\NormalTok{(aux,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+\KeywordTok{sum}\NormalTok{(}\KeywordTok{diag}\NormalTok{(A))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 24
+\end{verbatim}
+
+\hypertarget{determinante-de-uma-matriz}{%
+\section{Determinante de uma matriz}\label{determinante-de-uma-matriz}}
+
+O \textbf{Determinante de matriz} é um valor associado a uma matriz quadrada, A, e denotada por \(|A|\). A função \texttt{det()} calcula o determinante de uma matriz.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{aux\textless{}{-}}\KeywordTok{c}\NormalTok{(}\DecValTok{7}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{9}\NormalTok{)}
+\NormalTok{A\textless{}{-}}\StringTok{ }\KeywordTok{matrix}\NormalTok{(aux,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+\KeywordTok{det}\NormalTok{(A)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 332
+\end{verbatim}
+
+A \textbf{Matriz singular} é a matriz A cujo determinante é nulo, \(|A| = 0\). A matriz B é singular
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{aux\textless{}{-}}\KeywordTok{c}\NormalTok{(}\DecValTok{7}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{14}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{9}\NormalTok{)}
+\NormalTok{A\textless{}{-}}\StringTok{ }\KeywordTok{matrix}\NormalTok{(aux,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+\KeywordTok{det}\NormalTok{(A)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0
+\end{verbatim}
+
+\textbf{Propriedades do determinante:}
+
+\begin{itemize}
+\tightlist
+\item
+  O determinante de uma matriz quadrada A é igual ao determinante da sua transposta: \(|A| = |A^\prime|\);
+\item
+  Caso exista uma linha ou coluna na matriz igual a zero, o determinante é zero;
+\item
+  Caso exista duas filas paralelas, iguais ou proporcional, o determinante é zero;
+\item
+  O determinante do produto de um número real k por uma matriz A é igual ao produto de k elevado a n, onde n é o número de linhas de A, pelo determinante de A: \(|k . A| = k^n . |A|\);
+\item
+  Caso os elementos abaixo ou acima da diagonal principal forem nulos, o determinante será o produto dos elementos da diagonal principal;
+\item
+  Teorema de Binet: Seja A e B matrizes quadradas de ordem n, o determinante do produto de A por B é igual ao produto dos determinantes de A e B: \(|AB|=|A|.|B|\).
+\end{itemize}
+
+\hypertarget{matriz-inversa}{%
+\section{Matriz inversa}\label{matriz-inversa}}
+
+A \textbf{Matriz inversa} de uma matriz \(A\) é representada por \(A^{-1}\) é aquela que
+
+\begin{equation*}
+AA^{-1}=A^{-1}A = I
+\end{equation*}
+
+onde \(I\) é a matriz identidade. Para uma matriz \(A\) ter inversa é necessário e suficiente que seja \textbf{quadrada} e \textbf{não sigular}, isto é, o determinante é diferente de zero.
+
+Para
+
+\begin{equation*}
+A = 
+\begin{bmatrix}
+ 2  & -5\\
+-1  &  3
+\end{bmatrix}
+\end{equation*}
+
+a sua matriz inversa é
+
+\begin{equation*}
+A^{-1} = 
+\begin{bmatrix}
+ 3 & 5\\
+ 1 & 2
+\end{bmatrix}
+\end{equation*}
+
+Verificando \(A^{-1}A=I\)
+
+\begin{equation*}
+\begin{bmatrix}
+ 2 & -5\\
+-1 &  3
+\end{bmatrix}
+\begin{bmatrix}
+ 3 & 5\\
+ 1 & 2
+\end{bmatrix}=
+\begin{bmatrix}
+1 & 0 \\
+0 & 1 
+\end{bmatrix}
+\end{equation*}
+
+A função \texttt{solve()} é usada para resulver sistemas de equações lineares e em uma de suas chamadas retornar a matriz inversa do seu argumento.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{A =}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\OperatorTok{{-}}\DecValTok{1}\NormalTok{,}\OperatorTok{{-}}\DecValTok{5}\NormalTok{,}\DecValTok{3}\NormalTok{),}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{)}
+\NormalTok{inv\_A =}\StringTok{ }\KeywordTok{solve}\NormalTok{(A)}
+\NormalTok{inv\_A}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2]
+## [1,]    3    5
+## [2,]    1    2
+\end{verbatim}
+
+para verificar a relaçao entre a sua matriz e a suam matriz inversa
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{A }\OperatorTok{\%*\%}\StringTok{ }\NormalTok{inv\_A}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2]
+## [1,]    1    0
+## [2,]    0    1
+\end{verbatim}
+
+\hypertarget{operauxe7uxf5es-com-matrizes-no-r}{%
+\section{Operações com matrizes no R}\label{operauxe7uxf5es-com-matrizes-no-r}}
+
+A \textbf{Soma ou subtração} de duas matrizes \textbf{com as mesmas dimensões} é obtida pela soma/subtração dos elementos correspondentes.
+
+O operador para essas operações são \texttt{+} e \texttt{-}.
+
+\begin{equation*}
+\begin{bmatrix}
+7 & 2 & 3\\
+2 & 8 & 4\\
+3 & 4 & 9
+\end{bmatrix} + 
+\begin{bmatrix}
+3 & 8 & 7\\
+8 & 2 & 6\\
+7 & 6 & 1
+\end{bmatrix} = 
+\begin{bmatrix}
+10 & 10 & 10\\
+10 & 10 & 10\\
+10 & 10 & 10
+\end{bmatrix}
+\end{equation*}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{A \textless{}{-}}\StringTok{ }\KeywordTok{matrix}\NormalTok{ (}\KeywordTok{c}\NormalTok{(}\DecValTok{7}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{9}\NormalTok{),}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+\NormalTok{B \textless{}{-}}\StringTok{ }\KeywordTok{matrix}\NormalTok{ (}\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{7}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{7}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{1}\NormalTok{),}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+\NormalTok{A}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2] [,3]
+## [1,]    7    2    3
+## [2,]    2    8    4
+## [3,]    3    4    9
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{B}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2] [,3]
+## [1,]    3    8    7
+## [2,]    8    2    6
+## [3,]    7    6    1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{A}\OperatorTok{+}\NormalTok{B}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2] [,3]
+## [1,]   10   10   10
+## [2,]   10   10   10
+## [3,]   10   10   10
+\end{verbatim}
+
+O \textbf{Produto por escalar} de uma matriz A por um escalar c é obtida multiplicando cada elemento de A pelo valor de \(c \in \mathbf{R}\).
+
+O operador para essa operação \texttt{*}.
+
+\begin{equation*}
+5 \times
+\begin{bmatrix}
+3 & 8 & 7\\
+8 & 2 & 6\\
+7 & 6 & 1
+\end{bmatrix} = 
+\begin{bmatrix}
+15 & 40 & 35\\
+40 & 10 & 30\\
+35 & 30 & 5
+\end{bmatrix}
+\end{equation*}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{A \textless{}{-}}\StringTok{ }\KeywordTok{matrix}\NormalTok{ (}\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{7}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{7}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{1}\NormalTok{),}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+\NormalTok{A}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2] [,3]
+## [1,]    3    8    7
+## [2,]    8    2    6
+## [3,]    7    6    1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{5}\OperatorTok{*}\NormalTok{A}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2] [,3]
+## [1,]   15   40   35
+## [2,]   40   10   30
+## [3,]   35   30    5
+\end{verbatim}
+
+Na situação quando duas matrizes A e B tem o mesmo número de linhas e colunas o operador \texttt{*} executa o produto elemento a elemento.
+
+\begin{equation*}
+\begin{bmatrix}
+7 & 2 & 3\\
+2 & 8 & 4\\
+3 & 4 & 9
+\end{bmatrix} \circ 
+\begin{bmatrix}
+3 & 8 & 7\\
+8 & 2 & 6\\
+7 & 6 & 1
+\end{bmatrix} =
+\begin{bmatrix}
+21 & 16 & 21\\
+16 & 64 & 24\\
+21 & 24 & 9
+\end{bmatrix}
+\end{equation*}
+
+No R seria
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{A \textless{}{-}}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{7}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{8}\NormalTok{),}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+\NormalTok{B \textless{}{-}}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{7}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{7}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{1}\NormalTok{),}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+\NormalTok{A}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2] [,3]
+## [1,]    7    2    3
+## [2,]    2    8    4
+## [3,]    3    2    8
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{B}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2] [,3]
+## [1,]    3    8    7
+## [2,]    8    2    6
+## [3,]    7    6    1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{A}\OperatorTok{*}\NormalTok{B}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2] [,3]
+## [1,]   21   16   21
+## [2,]   16   16   24
+## [3,]   21   12    8
+\end{verbatim}
+
+O \textbf{Produto de matrizes} só pode ser realizada caso o número de colunas da matriz que pré-multiplica for igual ao número de linhas da matriz que pós-multiplica. A operação consiste na soma dos produtos de cada elementos da linha da matriz que pré-multiplica pelos respectivos elementos da coluna da matriz que pós-multiplica. O resultado será uma matriz com o número de linhas da que pré-multiplica e com número de colunas das que pós-multiplica.
+
+O operador para essas operações são \texttt{\%*\%}.
+
+\begin{equation*}
+\begin{bmatrix}
+7 & 2 \\
+2 & 8 \\
+\end{bmatrix} + 
+\begin{bmatrix}
+3 & 8 & 7\\
+8 & 2 & 6
+\end{bmatrix} = 
+\begin{bmatrix}
+37 & 60 & 61\\
+70 & 80 & 62
+\end{bmatrix}
+\end{equation*}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{A \textless{}{-}}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{7}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{8}\NormalTok{),}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{)}
+\NormalTok{B \textless{}{-}}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{7}\NormalTok{,}\DecValTok{6}\NormalTok{),}\DataTypeTok{nrow =} \DecValTok{2}\NormalTok{, }\DataTypeTok{ncol =}\DecValTok{3}\NormalTok{)}
+\NormalTok{A}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2]
+## [1,]    7    2
+## [2,]    2    8
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{B}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2] [,3]
+## [1,]    3    8    7
+## [2,]    8    2    6
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{A}\OperatorTok{\%*\%}\NormalTok{B}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2] [,3]
+## [1,]   37   60   61
+## [2,]   70   32   62
+\end{verbatim}
+
+\hypertarget{regressuxe3o-linear-muxfaltipla}{%
+\chapter{Regressão Linear Múltipla}\label{regressuxe3o-linear-muxfaltipla}}
+
+\hypertarget{modelo-de-regressuxe3o-linear-muxfaltipla}{%
+\section{Modelo de Regressão Linear Múltipla}\label{modelo-de-regressuxe3o-linear-muxfaltipla}}
+
+Seja a relação linear entre uma variável dependente Y e p variáveis independentes X. Então, o modelo estatístico de uma regressão linear, nos parâmetros, múltipla com p variáveis independentes e um termo aleatório, \(\epsilon\), é dado por
+
+\begin{equation*}
+Y_i = \beta_0 + \beta_1X_{1i} + \beta_2X_{2i} + \cdots +
++ \beta_pX_{pi} + \epsilon_i
+\end{equation*}
+
+com \(i=1,2,\ldots,n\). De forma alternativa, tem-se
+
+\begin{equation*}
+Y_i = \beta_0 + \sum_{j=1}^p\beta_j X_{ji} + \epsilon_i
+\end{equation*}.
+
+Uma outra forma de expressar as relações, fazendo \(i=1,2,\ldots, n\), surgem as equações:
+
+\begin{align}
+Y_1 &= \beta_0 + \beta_1 X_{11} + \beta_2 X_{21} + \cdots + \beta_p X_{p1}\\
+Y_2 &= \beta_0 + \beta_1 X_{12} + \beta_2 X_{22} + \cdots + \beta_p X_{p2}\\
+Y_3 &= \beta_0 + \beta_1 X_{13} + \beta_2 X_{23} + \cdots + \beta_p X_{p3}\\
+\vdots & \\
+Y_n &= \beta_0 + \beta_1 X_{1n} + \beta_2 X_{2n} + \cdots + \beta_p X_{pn}
+\end{align}
+
+Em notação matricial, esse sistema de equações pode ser expressa por
+
+\begin{equation*}
+Y = X\beta + \epsilon
+\end{equation*}
+
+que de forma explícita é
+
+\begin{equation*}
+\begin{bmatrix}
+Y_1\\
+Y_2\\
+\vdots \\
+Y_n
+\end{bmatrix}=
+\begin{bmatrix}
+1 & X_{11} & X_{12} & \cdots & X_{1p} \\
+1 & X_{21} & X_{22} & \cdots & X_{2p} \\
+\vdots &        & \cdots &            \\
+1 & X_{n1} & X_{n2} & \cdots & X_{np} \\
+\end{bmatrix}
+\begin{bmatrix}
+\beta_0\\
+\beta_1\\
+\beta_2\\
+\vdots \\
+\beta_p
+\end{bmatrix}+
+\begin{bmatrix}
+\epsilon_0\\
+\epsilon_1\\
+\epsilon_2\\
+\vdots \\
+\epsilon_p
+\end{bmatrix}
+\end{equation*}
+
+Sendo
+
+\begin{itemize}
+\tightlist
+\item
+  n o número de observações e p a quantidade de variáveis explicativas;
+\item
+  X uma matriz \(n \times (p+1)\);
+\item
+  Y um vetor \(n \times 1\);
+\item
+  \(\beta\) um vetor \((p+1) \times 1\); e
+\item
+  \(\epsilon\) um vetor \(n \times 1\).
+\end{itemize}
+
+O problema consiste em obter o modelo ajustado:
+
+\begin{equation*}
+\hat{Y}_i = \hat{\beta}_0 + \hat{\beta}_1X_{1i} + \hat{\beta}_2X_{2i} + \cdots +
++ \hat{\beta}_p X_{pi}
+\end{equation*}
+
+É, para isso, deve-se obter o vetor \(\beta\). Admita-se as seguintes pressuposições:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  A variável dependente \(Y\) é a função linear das variáveis independentes X.
+\item
+  Os valores das variáveis independentes são fixos.
+\item
+  A média dos erros é nula, isto é, \(E\left(\epsilon_i\right)=0\).
+\item
+  Os erros são homoscedásticos, assim, \(V\left(\epsilon_i\right)=\sigma^2\).
+\item
+  Os erros são não correlacionados entre si, isto é, \(E\left(\epsilon_i\epsilon_j\right)=0\), para \(i \ne j\).
+\item
+  Os erros têm distribuição normal.
+\end{enumerate}
+
+Considere algumas consequências:
+
+\begin{itemize}
+\item
+  Combine (4) e (5) para \(E\left(\epsilon^\prime\epsilon\right)=I\sigma^2\).
+\item
+  As pressuposições (1), (2) e (3) são necessárias para demostrar que os estimadores de Mínimos Quadrados são \textbf{não tendenciosos}.
+\item
+  As pressuposições de (1) a (5) permitem demonstrar que tais estimadores são \textbf{não tendenciosos} e de \textbf{variância mínima}.
+\item
+  A pressuposição (6) é necessária para construção de teste de hipóteses e de intervalos de confiânça para os parãmetros.
+\end{itemize}
+
+\hypertarget{estimadores-dos-paruxe2metros}{%
+\section{Estimadores dos parâmetros}\label{estimadores-dos-paruxe2metros}}
+
+O Método dos Mínimos Quadrados consiste em adotar como estimativas dos parâmetros os valores que minimiza a soma de quadrados dos desvios.
+
+O modelo \(Y = X\beta+\epsilon\) têm \(\epsilon = Y - X\beta\), então a soma dos quadrados dos desvios é dada por
+
+\begin{align}
+Z &= \epsilon^\prime\epsilon \\
+  &= \left(Y-X\beta\right)^\prime\left(Y-X\beta\right)\\
+  &= Y^\prime Y - Y^\prime X\beta - \beta^\prime X^\prime Y + \beta^\prime X^\prime X \beta
+\end{align}
+
+Como \(Y^\prime X\beta = \beta^\prime X^\prime Y\) são iguais, então
+
+\begin{align}
+Z &= Y^\prime Y -2 \beta^\prime X^\prime Y + \beta^\prime X^\prime X \beta
+\end{align}
+
+A função \(Z\) apresenta seu valor mínimo para \(\beta\) que tornem a diferencial de \(Z\) e igualar a 0 (zero).
+
+\begin{equation*}
+\dfrac{\partial Z}{\partial \beta}= -2\left(\partial\beta^\prime\right) X^\prime Y + \left(\partial\beta^\prime\right) X^\prime X\hat{\beta} + \hat{\beta}^\prime X^\prime X\left(\partial \beta\right) = 0
+\end{equation*}
+
+Uma vez que \(\left(\partial\beta^\prime\right)X^\prime X\hat{\beta} =\hat{\beta}^\prime X^\prime X\left(\partial \beta\right)\) tem-se
+
+\begin{align}
+\dfrac{\partial Z}{\partial \beta}&= -2\left(\partial\beta^\prime\right) X^\prime Y + 2\left(\partial\beta^\prime\right) X^\prime X\hat{\beta} \\
+  &=2\left(\partial\beta^\prime\right)\left[X^\prime X\hat{\beta}  -X^\prime Y\right]
+\end{align}
+
+Assim, para definir \(\hat{\beta}\) faça
+
+\begin{equation*}
+X^\prime X\hat{\beta}-X^\prime Y = 0
+\end{equation*}
+
+Logo,
+\begin{equation*}
+\hat{\beta} = \left(X^\prime X\right)^{-1}X^\prime Y.
+\end{equation*}
+
+\hypertarget{methods}{%
+\chapter{Methods}\label{methods}}
+
+We describe our methods in this chapter.
+
+\hypertarget{applications}{%
+\chapter{Applications}\label{applications}}
+
+Some \emph{significant} applications are demonstrated in this chapter.
+
+\hypertarget{example-one}{%
+\section{Example one}\label{example-one}}
+
+\hypertarget{example-two}{%
+\section{Example two}\label{example-two}}
+
+\hypertarget{final-words}{%
+\chapter{Final Words}\label{final-words}}
+
+We have finished a nice book.
+
+  \bibliography{book.bib,packages.bib}
+
+\end{document}

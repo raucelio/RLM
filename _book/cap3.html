@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Matrizes no R | Regressão Linear Múltipla</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Matrizes no R | Regressão Linear Múltipla" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Matrizes no R | Regressão Linear Múltipla" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="intro.html"/>
+<link rel="next" href="regressão-linear-múltipla.html"/>
+<script src="libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introdução</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introdução a matrizes</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#definições"><i class="fa fa-check"></i><b>2.1</b> Definições</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#operações-com-matrizes"><i class="fa fa-check"></i><b>2.2</b> Operações com matrizes</a></li>
+<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#propriedades-de-matrizes"><i class="fa fa-check"></i><b>2.3</b> Propriedades de matrizes</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="cap3.html"><a href="cap3.html"><i class="fa fa-check"></i><b>3</b> Matrizes no R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="cap3.html"><a href="cap3.html#gerar-matrizes-no-r"><i class="fa fa-check"></i><b>3.1</b> Gerar matrizes no R</a></li>
+<li class="chapter" data-level="3.2" data-path="cap3.html"><a href="cap3.html#transposta-de-uma-matriz"><i class="fa fa-check"></i><b>3.2</b> Transposta de uma matriz</a></li>
+<li class="chapter" data-level="3.3" data-path="cap3.html"><a href="cap3.html#traço-de-uma-matriz"><i class="fa fa-check"></i><b>3.3</b> Traço de uma matriz</a></li>
+<li class="chapter" data-level="3.4" data-path="cap3.html"><a href="cap3.html#determinante-de-uma-matriz"><i class="fa fa-check"></i><b>3.4</b> Determinante de uma matriz</a></li>
+<li class="chapter" data-level="3.5" data-path="cap3.html"><a href="cap3.html#matriz-inversa"><i class="fa fa-check"></i><b>3.5</b> Matriz inversa</a></li>
+<li class="chapter" data-level="3.6" data-path="cap3.html"><a href="cap3.html#operações-com-matrizes-no-r"><i class="fa fa-check"></i><b>3.6</b> Operações com matrizes no R</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="regressão-linear-múltipla.html"><a href="regressão-linear-múltipla.html"><i class="fa fa-check"></i><b>4</b> Regressão Linear Múltipla</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="regressão-linear-múltipla.html"><a href="regressão-linear-múltipla.html#modelo-de-regressão-linear-múltipla"><i class="fa fa-check"></i><b>4.1</b> Modelo de Regressão Linear Múltipla</a></li>
+<li class="chapter" data-level="4.2" data-path="regressão-linear-múltipla.html"><a href="regressão-linear-múltipla.html#estimadores-dos-parâmetros"><i class="fa fa-check"></i><b>4.2</b> Estimadores dos parâmetros</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>5</b> Methods</a></li>
+<li class="chapter" data-level="6" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>6</b> Applications</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="applications.html"><a href="applications.html#example-one"><i class="fa fa-check"></i><b>6.1</b> Example one</a></li>
+<li class="chapter" data-level="6.2" data-path="applications.html"><a href="applications.html#example-two"><i class="fa fa-check"></i><b>6.2</b> Example two</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>7</b> Final Words</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Regressão Linear Múltipla</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="cap3" class="section level1" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Matrizes no R</h1>
+<p>O R tem uma estrutura de dados que organiza os seus valores em linhas e colunas, cujos os elemetentos devem ser do mesmo tipo. Essa estrutura é uma matriz e quando os seus valores são numéricos o seu coportamento é igual ao de uma matriz.</p>
+<p>Uma <strong>matriz</strong> é um arranjo retangular de elementos organizados em linhas e em colunas. Uma matriz é denotada por uma letra maíuscula e os elementos por letras minúsculas, como em A:</p>
+<p><span class="math display">\[\begin{equation*}
+A = 
+\begin{bmatrix}
+a_{11} &amp; a_{12} &amp; a_{13} &amp; \cdots &amp; a_{1n} \\
+a_{21} &amp; a_{22} &amp; a_{23} &amp; \cdots &amp; a_{2n} \\
+\vdots &amp;        &amp;        &amp; \cdots &amp;        \\
+a_{m1} &amp; a_{m2} &amp; a_{m3} &amp; \cdots &amp; a_{mn} \\
+\end{bmatrix}
+\end{equation*}\]</span></p>
+<p>Uma matriz com <span class="math inline">\(m \times n\)</span> elementos, ordenados em <span class="math inline">\(m\)</span> linhas e <span class="math inline">\(n\)</span> colunas, é uma matriz de ordem <span class="math inline">\(m\)</span> por <span class="math inline">\(n\)</span> e denotada por <span class="math inline">\(m \times n\)</span>. Na notação <span class="math inline">\(a_{ij}\)</span> o índice <span class="math inline">\(i\)</span> indica a linha e o <span class="math inline">\(j\)</span> a coluna.</p>
+<div id="gerar-matrizes-no-r" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Gerar matrizes no R</h2>
+<p>A função <code>matrix()</code> gera uma matriz com <span class="math inline">\(m \times n\)</span> valores organizados em <span class="math inline">\(m\)</span> linhas e <span class="math inline">\(n\)</span> colunas. A matriz</p>
+<p><span class="math display">\[\begin{equation*}
+A = 
+\begin{bmatrix}
+2 &amp; 5 &amp; 10 \\
+3 &amp; 6 &amp; 12
+\end{bmatrix}
+\end{equation*}\]</span></p>
+<p>pode ser gerada pelo código abaixo.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="cap3.html#cb1-1" aria-hidden="true"></a>dados &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">10</span>,<span class="dv">12</span>)</span>
+<span id="cb1-2"><a href="cap3.html#cb1-2" aria-hidden="true"></a>m =<span class="st"> </span><span class="dv">2</span> <span class="co"># Número de linhas</span></span>
+<span id="cb1-3"><a href="cap3.html#cb1-3" aria-hidden="true"></a>n =<span class="st"> </span><span class="dv">3</span> <span class="co"># Número de colunas </span></span>
+<span id="cb1-4"><a href="cap3.html#cb1-4" aria-hidden="true"></a>A &lt;-<span class="st"> </span><span class="kw">matrix</span>(dados, <span class="dt">nrow =</span> m, <span class="dt">ncol =</span> n)</span>
+<span id="cb1-5"><a href="cap3.html#cb1-5" aria-hidden="true"></a>A</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    2    5   10
+## [2,]    3    6   12</code></pre>
+<p>Observe que a matriz gerada tem <span class="math inline">\(m=2\)</span> linhas e <span class="math inline">\(n=3\)</span> colunas e os <span class="math inline">\(n\times m = 6\)</span> valores são alocados por colunas, iniciando pela 1ª coluna da 1ª linha, esse comporpamento é o padrão e pode ser alterado pelo argumento <code>byrow =T</code>.</p>
+<p>Uma <strong>matriz quadrada</strong> é caracterizada por ter o número de linhas igual ao numero de colunas, <span class="math inline">\(m = n\)</span>. Assim,</p>
+<p><span class="math display">\[\begin{equation*}
+A = 
+\begin{bmatrix}
+8 &amp; 2 \\
+4 &amp; 10
+\end{bmatrix}
+\end{equation*}\]</span></p>
+<p>A matriz acima é gerada por</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="cap3.html#cb3-1" aria-hidden="true"></a>dados &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">8</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">10</span>)</span>
+<span id="cb3-2"><a href="cap3.html#cb3-2" aria-hidden="true"></a>m =<span class="st"> </span><span class="dv">2</span> <span class="co"># Número de linhas</span></span>
+<span id="cb3-3"><a href="cap3.html#cb3-3" aria-hidden="true"></a>n =<span class="st"> </span><span class="dv">2</span> <span class="co"># Número de colunas </span></span>
+<span id="cb3-4"><a href="cap3.html#cb3-4" aria-hidden="true"></a>A &lt;-<span class="st"> </span><span class="kw">matrix</span>(dados, <span class="dt">nrow =</span> m, <span class="dt">ncol =</span> n)</span>
+<span id="cb3-5"><a href="cap3.html#cb3-5" aria-hidden="true"></a>A</span></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    8    2
+## [2,]    4   10</code></pre>
+<p>Em uma matriz quadrada, os elementos <span class="math inline">\(a_{ij}\)</span>, com <span class="math inline">\(i = j\)</span>, forma a <strong>diagonal principal</strong>. Os elementos de uma diagonal podem ser obtidos pela função <code>diag()</code>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="cap3.html#cb5-1" aria-hidden="true"></a>A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">3</span>),<span class="dv">2</span>,<span class="dv">2</span>)</span>
+<span id="cb5-2"><a href="cap3.html#cb5-2" aria-hidden="true"></a><span class="kw">diag</span>(A)</span></code></pre></div>
+<pre><code>## [1] 2 3</code></pre>
+<p>Uma matriz diagonal é caracterizada por ter os elementos <span class="math inline">\(a_{ij} = 0\)</span> para todo <span class="math inline">\(i \neq j\)</span>. A função <code>diag()</code>, além de obter os elementos da diagonal principal, gera uma matriz diagonal. A matriz</p>
+<p><span class="math display">\[\begin{equation*}
+A = 
+\begin{bmatrix}
+8 &amp; 0 &amp; 0\\
+0 &amp; 2 &amp; 0\\
+0 &amp; 0 &amp; 5
+\end{bmatrix}
+\end{equation*}\]</span></p>
+<p>pode ser criada pelo código</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="cap3.html#cb7-1" aria-hidden="true"></a>aux &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">8</span>,<span class="dv">2</span>,<span class="dv">5</span>)</span>
+<span id="cb7-2"><a href="cap3.html#cb7-2" aria-hidden="true"></a>A&lt;-<span class="st"> </span><span class="kw">diag</span>(aux)</span>
+<span id="cb7-3"><a href="cap3.html#cb7-3" aria-hidden="true"></a>A</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    8    0    0
+## [2,]    0    2    0
+## [3,]    0    0    5</code></pre>
+<p>A <strong>Matriz identidade</strong> pode ser uma matriz diagonal, cujos elementos da diagonal principal são iguais a 1. A matriz</p>
+<p><span class="math display">\[\begin{equation*}
+I = 
+\begin{bmatrix}
+1 &amp; 0 &amp; 0\\
+0 &amp; 1 &amp; 0\\
+0 &amp; 0 &amp; 1
+\end{bmatrix}
+\end{equation*}\]</span></p>
+<p>pode ser gerada por</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="cap3.html#cb9-1" aria-hidden="true"></a>aux &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span>,<span class="dv">3</span>)</span>
+<span id="cb9-2"><a href="cap3.html#cb9-2" aria-hidden="true"></a>I &lt;-<span class="st"> </span><span class="kw">diag</span>(aux)</span>
+<span id="cb9-3"><a href="cap3.html#cb9-3" aria-hidden="true"></a>I</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    0    0
+## [2,]    0    1    0
+## [3,]    0    0    1</code></pre>
+<p>Observe que <span class="math inline">\(a_{ij} =0\)</span> para <span class="math inline">\(i \neq j\)</span> e <span class="math inline">\(a_{ij} = 1\)</span> para <span class="math inline">\(i = j\)</span>.</p>
+<p>A <strong>Matriz nula</strong> tem todos os elementos iguais a 0. Por exemplo</p>
+<p><span class="math display">\[\begin{equation*}
+B = 
+\begin{bmatrix}
+0 &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; 0
+\end{bmatrix}
+\end{equation*}\]</span></p>
+<p>é gerada pela função <code>matrix()</code> com o valor 0 (zero) sendo o único para preencher todas as possições da matriz.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="cap3.html#cb11-1" aria-hidden="true"></a>B &lt;-<span class="st"> </span><span class="kw">matrix</span> (<span class="dv">0</span>, <span class="dt">nrow=</span><span class="dv">2</span>, <span class="dt">ncol=</span><span class="dv">3</span>)</span>
+<span id="cb11-2"><a href="cap3.html#cb11-2" aria-hidden="true"></a>B</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    0    0    0
+## [2,]    0    0    0</code></pre>
+</div>
+<div id="transposta-de-uma-matriz" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Transposta de uma matriz</h2>
+<p><strong>Matriz transposta</strong> é o resultado da troca das linhas pelas colunas e denotada por <span class="math inline">\(A^T\)</span> ou <span class="math inline">\(A^\prime\)</span>.</p>
+<p>Para</p>
+<p><span class="math display">\[\begin{equation*}
+A = 
+\begin{bmatrix}
+2 &amp; 7 \\
+0 &amp; 1 \\
+2 &amp; 0 
+\end{bmatrix}
+\end{equation*}\]</span></p>
+<p>a sua transposta <span class="math inline">\(A^\prime\)</span> é</p>
+<p><span class="math display">\[\begin{equation*}
+A^\prime = 
+\begin{bmatrix}
+2 &amp; 0 &amp; 2\\
+7 &amp; 1 &amp; 0
+\end{bmatrix}
+\end{equation*}\]</span></p>
+<p>A função <code>t()</code> gera a matriz transposta de uma matriz. Observe o códio seguinte</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="cap3.html#cb13-1" aria-hidden="true"></a>aux &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">2</span>,<span class="dv">7</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb13-2"><a href="cap3.html#cb13-2" aria-hidden="true"></a></span>
+<span id="cb13-3"><a href="cap3.html#cb13-3" aria-hidden="true"></a>A &lt;-<span class="st"> </span><span class="kw">matrix</span> (aux,<span class="dt">nrow=</span><span class="dv">3</span>,<span class="dt">ncol=</span><span class="dv">2</span>)</span>
+<span id="cb13-4"><a href="cap3.html#cb13-4" aria-hidden="true"></a></span>
+<span id="cb13-5"><a href="cap3.html#cb13-5" aria-hidden="true"></a>tranposta_A &lt;-<span class="st"> </span><span class="kw">t</span>(A)</span>
+<span id="cb13-6"><a href="cap3.html#cb13-6" aria-hidden="true"></a></span>
+<span id="cb13-7"><a href="cap3.html#cb13-7" aria-hidden="true"></a>A</span></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    2    7
+## [2,]    0    1
+## [3,]    2    0</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="cap3.html#cb15-1" aria-hidden="true"></a>tranposta_A</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    2    0    2
+## [2,]    7    1    0</code></pre>
+</div>
+<div id="traço-de-uma-matriz" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Traço de uma matriz</h2>
+<ul>
+<li><strong>Traço de matriz quadrada</strong> é a soma dos elementos da diagonal principal de uma matriz:</li>
+</ul>
+<p><span class="math display">\[\begin{equation*}
+Traço(A)= \sum_{i,j} a_{ij} \quad \forall i = j
+\end{equation*}\]</span></p>
+<p>Para</p>
+<p><span class="math display">\[\begin{equation*}
+A = 
+\begin{bmatrix}
+7 &amp; 2 &amp; 3\\
+2 &amp; 8 &amp; 4\\
+3 &amp; 4 &amp; 9
+\end{bmatrix}
+\end{equation*}\]</span></p>
+<p>os elementos da <strong>diagonal principal</strong> são 7, 8 e 9, logo:</p>
+<p><span class="math display">\[\begin{equation*}
+Traço(A)= 7 + 8 + 9 = 24
+\end{equation*}\]</span></p>
+<p>O traço de A pode ser obtido por meio das funções <code>diag()</code> e <code>sum()</code> como abaixo.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="cap3.html#cb17-1" aria-hidden="true"></a>aux&lt;-<span class="kw">c</span>(<span class="dv">7</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">8</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">9</span>)</span>
+<span id="cb17-2"><a href="cap3.html#cb17-2" aria-hidden="true"></a>A&lt;-<span class="st"> </span><span class="kw">matrix</span>(aux,<span class="dv">3</span>,<span class="dv">3</span>)</span>
+<span id="cb17-3"><a href="cap3.html#cb17-3" aria-hidden="true"></a><span class="kw">sum</span>(<span class="kw">diag</span>(A))</span></code></pre></div>
+<pre><code>## [1] 24</code></pre>
+</div>
+<div id="determinante-de-uma-matriz" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> Determinante de uma matriz</h2>
+<p>O <strong>Determinante de matriz</strong> é um valor associado a uma matriz quadrada, A, e denotada por <span class="math inline">\(|A|\)</span>. A função <code>det()</code> calcula o determinante de uma matriz.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="cap3.html#cb19-1" aria-hidden="true"></a>aux&lt;-<span class="kw">c</span>(<span class="dv">7</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">8</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">9</span>)</span>
+<span id="cb19-2"><a href="cap3.html#cb19-2" aria-hidden="true"></a>A&lt;-<span class="st"> </span><span class="kw">matrix</span>(aux,<span class="dv">3</span>,<span class="dv">3</span>)</span>
+<span id="cb19-3"><a href="cap3.html#cb19-3" aria-hidden="true"></a><span class="kw">det</span>(A)</span></code></pre></div>
+<pre><code>## [1] 332</code></pre>
+<p>A <strong>Matriz singular</strong> é a matriz A cujo determinante é nulo, <span class="math inline">\(|A| = 0\)</span>. A matriz B é singular</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="cap3.html#cb21-1" aria-hidden="true"></a>aux&lt;-<span class="kw">c</span>(<span class="dv">7</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">14</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">9</span>)</span>
+<span id="cb21-2"><a href="cap3.html#cb21-2" aria-hidden="true"></a>A&lt;-<span class="st"> </span><span class="kw">matrix</span>(aux,<span class="dv">3</span>,<span class="dv">3</span>)</span>
+<span id="cb21-3"><a href="cap3.html#cb21-3" aria-hidden="true"></a><span class="kw">det</span>(A)</span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<p><strong>Propriedades do determinante:</strong></p>
+<ul>
+<li>O determinante de uma matriz quadrada A é igual ao determinante da sua transposta: <span class="math inline">\(|A| = |A^\prime|\)</span>;</li>
+<li>Caso exista uma linha ou coluna na matriz igual a zero, o determinante é zero;</li>
+<li>Caso exista duas filas paralelas, iguais ou proporcional, o determinante é zero;</li>
+<li>O determinante do produto de um número real k por uma matriz A é igual ao produto de k elevado a n, onde n é o número de linhas de A, pelo determinante de A: <span class="math inline">\(|k . A| = k^n . |A|\)</span>;</li>
+<li>Caso os elementos abaixo ou acima da diagonal principal forem nulos, o determinante será o produto dos elementos da diagonal principal;</li>
+<li>Teorema de Binet: Seja A e B matrizes quadradas de ordem n, o determinante do produto de A por B é igual ao produto dos determinantes de A e B: <span class="math inline">\(|AB|=|A|.|B|\)</span>.</li>
+</ul>
+</div>
+<div id="matriz-inversa" class="section level2" number="3.5">
+<h2><span class="header-section-number">3.5</span> Matriz inversa</h2>
+<p>A <strong>Matriz inversa</strong> de uma matriz <span class="math inline">\(A\)</span> é representada por <span class="math inline">\(A^{-1}\)</span> é aquela que</p>
+<p><span class="math display">\[\begin{equation*}
+AA^{-1}=A^{-1}A = I
+\end{equation*}\]</span></p>
+<p>onde <span class="math inline">\(I\)</span> é a matriz identidade. Para uma matriz <span class="math inline">\(A\)</span> ter inversa é necessário e suficiente que seja <strong>quadrada</strong> e <strong>não sigular</strong>, isto é, o determinante é diferente de zero.</p>
+<p>Para</p>
+<p><span class="math display">\[\begin{equation*}
+A = 
+\begin{bmatrix}
+ 2  &amp; -5\\
+-1  &amp;  3
+\end{bmatrix}
+\end{equation*}\]</span></p>
+<p>a sua matriz inversa é</p>
+<p><span class="math display">\[\begin{equation*}
+A^{-1} = 
+\begin{bmatrix}
+ 3 &amp; 5\\
+ 1 &amp; 2
+\end{bmatrix}
+\end{equation*}\]</span></p>
+<p>Verificando <span class="math inline">\(A^{-1}A=I\)</span></p>
+<p><span class="math display">\[\begin{equation*}
+\begin{bmatrix}
+ 2 &amp; -5\\
+-1 &amp;  3
+\end{bmatrix}
+\begin{bmatrix}
+ 3 &amp; 5\\
+ 1 &amp; 2
+\end{bmatrix}=
+\begin{bmatrix}
+1 &amp; 0 \\
+0 &amp; 1 
+\end{bmatrix}
+\end{equation*}\]</span></p>
+<p>A função <code>solve()</code> é usada para resulver sistemas de equações lineares e em uma de suas chamadas retornar a matriz inversa do seu argumento.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="cap3.html#cb23-1" aria-hidden="true"></a>A =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">2</span>,<span class="op">-</span><span class="dv">1</span>,<span class="op">-</span><span class="dv">5</span>,<span class="dv">3</span>),<span class="dv">2</span>,<span class="dv">2</span>)</span>
+<span id="cb23-2"><a href="cap3.html#cb23-2" aria-hidden="true"></a>inv_A =<span class="st"> </span><span class="kw">solve</span>(A)</span>
+<span id="cb23-3"><a href="cap3.html#cb23-3" aria-hidden="true"></a>inv_A</span></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    3    5
+## [2,]    1    2</code></pre>
+<p>para verificar a relaçao entre a sua matriz e a suam matriz inversa</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="cap3.html#cb25-1" aria-hidden="true"></a>A <span class="op">%*%</span><span class="st"> </span>inv_A</span></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    1    0
+## [2,]    0    1</code></pre>
+</div>
+<div id="operações-com-matrizes-no-r" class="section level2" number="3.6">
+<h2><span class="header-section-number">3.6</span> Operações com matrizes no R</h2>
+<p>A <strong>Soma ou subtração</strong> de duas matrizes <strong>com as mesmas dimensões</strong> é obtida pela soma/subtração dos elementos correspondentes.</p>
+<p>O operador para essas operações são <code>+</code> e <code>-</code>.</p>
+<p><span class="math display">\[\begin{equation*}
+\begin{bmatrix}
+7 &amp; 2 &amp; 3\\
+2 &amp; 8 &amp; 4\\
+3 &amp; 4 &amp; 9
+\end{bmatrix} + 
+\begin{bmatrix}
+3 &amp; 8 &amp; 7\\
+8 &amp; 2 &amp; 6\\
+7 &amp; 6 &amp; 1
+\end{bmatrix} = 
+\begin{bmatrix}
+10 &amp; 10 &amp; 10\\
+10 &amp; 10 &amp; 10\\
+10 &amp; 10 &amp; 10
+\end{bmatrix}
+\end{equation*}\]</span></p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="cap3.html#cb27-1" aria-hidden="true"></a>A &lt;-<span class="st"> </span><span class="kw">matrix</span> (<span class="kw">c</span>(<span class="dv">7</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">8</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">9</span>),<span class="dv">3</span>,<span class="dv">3</span>)</span>
+<span id="cb27-2"><a href="cap3.html#cb27-2" aria-hidden="true"></a>B &lt;-<span class="st"> </span><span class="kw">matrix</span> (<span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">8</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">2</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">1</span>),<span class="dv">3</span>,<span class="dv">3</span>)</span>
+<span id="cb27-3"><a href="cap3.html#cb27-3" aria-hidden="true"></a>A</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    7    2    3
+## [2,]    2    8    4
+## [3,]    3    4    9</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="cap3.html#cb29-1" aria-hidden="true"></a>B</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    3    8    7
+## [2,]    8    2    6
+## [3,]    7    6    1</code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="cap3.html#cb31-1" aria-hidden="true"></a>A<span class="op">+</span>B</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]   10   10   10
+## [2,]   10   10   10
+## [3,]   10   10   10</code></pre>
+<p>O <strong>Produto por escalar</strong> de uma matriz A por um escalar c é obtida multiplicando cada elemento de A pelo valor de <span class="math inline">\(c \in \mathbf{R}\)</span>.</p>
+<p>O operador para essa operação <code>*</code>.</p>
+<p><span class="math display">\[\begin{equation*}
+5 \times
+\begin{bmatrix}
+3 &amp; 8 &amp; 7\\
+8 &amp; 2 &amp; 6\\
+7 &amp; 6 &amp; 1
+\end{bmatrix} = 
+\begin{bmatrix}
+15 &amp; 40 &amp; 35\\
+40 &amp; 10 &amp; 30\\
+35 &amp; 30 &amp; 5
+\end{bmatrix}
+\end{equation*}\]</span></p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="cap3.html#cb33-1" aria-hidden="true"></a>A &lt;-<span class="st"> </span><span class="kw">matrix</span> (<span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">8</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">2</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">1</span>),<span class="dv">3</span>,<span class="dv">3</span>)</span>
+<span id="cb33-2"><a href="cap3.html#cb33-2" aria-hidden="true"></a>A</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    3    8    7
+## [2,]    8    2    6
+## [3,]    7    6    1</code></pre>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="cap3.html#cb35-1" aria-hidden="true"></a><span class="dv">5</span><span class="op">*</span>A</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]   15   40   35
+## [2,]   40   10   30
+## [3,]   35   30    5</code></pre>
+<p>Na situação quando duas matrizes A e B tem o mesmo número de linhas e colunas o operador <code>*</code> executa o produto elemento a elemento.</p>
+<p><span class="math display">\[\begin{equation*}
+\begin{bmatrix}
+7 &amp; 2 &amp; 3\\
+2 &amp; 8 &amp; 4\\
+3 &amp; 4 &amp; 9
+\end{bmatrix} \circ 
+\begin{bmatrix}
+3 &amp; 8 &amp; 7\\
+8 &amp; 2 &amp; 6\\
+7 &amp; 6 &amp; 1
+\end{bmatrix} =
+\begin{bmatrix}
+21 &amp; 16 &amp; 21\\
+16 &amp; 64 &amp; 24\\
+21 &amp; 24 &amp; 9
+\end{bmatrix}
+\end{equation*}\]</span></p>
+<p>No R seria</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="cap3.html#cb37-1" aria-hidden="true"></a>A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">7</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">8</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">8</span>),<span class="dv">3</span>,<span class="dv">3</span>)</span>
+<span id="cb37-2"><a href="cap3.html#cb37-2" aria-hidden="true"></a>B &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">8</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">2</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">1</span>),<span class="dv">3</span>,<span class="dv">3</span>)</span>
+<span id="cb37-3"><a href="cap3.html#cb37-3" aria-hidden="true"></a>A</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    7    2    3
+## [2,]    2    8    4
+## [3,]    3    2    8</code></pre>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="cap3.html#cb39-1" aria-hidden="true"></a>B</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    3    8    7
+## [2,]    8    2    6
+## [3,]    7    6    1</code></pre>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="cap3.html#cb41-1" aria-hidden="true"></a>A<span class="op">*</span>B</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]   21   16   21
+## [2,]   16   16   24
+## [3,]   21   12    8</code></pre>
+<p>O <strong>Produto de matrizes</strong> só pode ser realizada caso o número de colunas da matriz que pré-multiplica for igual ao número de linhas da matriz que pós-multiplica. A operação consiste na soma dos produtos de cada elementos da linha da matriz que pré-multiplica pelos respectivos elementos da coluna da matriz que pós-multiplica. O resultado será uma matriz com o número de linhas da que pré-multiplica e com número de colunas das que pós-multiplica.</p>
+<p>O operador para essas operações são <code>%*%</code>.</p>
+<p><span class="math display">\[\begin{equation*}
+\begin{bmatrix}
+7 &amp; 2 \\
+2 &amp; 8 \\
+\end{bmatrix} + 
+\begin{bmatrix}
+3 &amp; 8 &amp; 7\\
+8 &amp; 2 &amp; 6
+\end{bmatrix} = 
+\begin{bmatrix}
+37 &amp; 60 &amp; 61\\
+70 &amp; 80 &amp; 62
+\end{bmatrix}
+\end{equation*}\]</span></p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="cap3.html#cb43-1" aria-hidden="true"></a>A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">7</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">8</span>),<span class="dv">2</span>,<span class="dv">2</span>)</span>
+<span id="cb43-2"><a href="cap3.html#cb43-2" aria-hidden="true"></a>B &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">8</span>,<span class="dv">8</span>,<span class="dv">2</span>,<span class="dv">7</span>,<span class="dv">6</span>),<span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span><span class="dv">3</span>)</span>
+<span id="cb43-3"><a href="cap3.html#cb43-3" aria-hidden="true"></a>A</span></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    7    2
+## [2,]    2    8</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="cap3.html#cb45-1" aria-hidden="true"></a>B</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    3    8    7
+## [2,]    8    2    6</code></pre>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="cap3.html#cb47-1" aria-hidden="true"></a>A<span class="op">%*%</span>B</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]   37   60   61
+## [2,]   70   32   62</code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="intro.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="regressão-linear-múltipla.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["RLM.pdf", "RLM.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
