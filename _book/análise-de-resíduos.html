@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 4 Regressão Linear Múltipla | Regressão Linear Múltipla</title>
+  <title>Chapter 7 Análise de Resíduos | Regressão Linear Múltipla</title>
   <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 4 Regressão Linear Múltipla | Regressão Linear Múltipla" />
+  <meta property="og:title" content="Chapter 7 Análise de Resíduos | Regressão Linear Múltipla" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 4 Regressão Linear Múltipla | Regressão Linear Múltipla" />
+  <meta name="twitter:title" content="Chapter 7 Análise de Resíduos | Regressão Linear Múltipla" />
   
   <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="cap3.html"/>
-<link rel="next" href="ajuste-do-modelo.html"/>
+<link rel="prev" href="análise-de-variância.html"/>
+<link rel="next" href="exemplos.html"/>
 <script src="libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -201,120 +201,99 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="regressão-linear-múltipla" class="section level1" number="4">
-<h1><span class="header-section-number">Chapter 4</span> Regressão Linear Múltipla</h1>
-<div id="modelo-de-regressão-linear-múltipla" class="section level2" number="4.1">
-<h2><span class="header-section-number">4.1</span> Modelo de Regressão Linear Múltipla</h2>
-<p>Seja a relação linear entre uma variável dependente Y e p variáveis independentes X. Então, o modelo estatístico de uma regressão linear, nos parâmetros, múltipla com p variáveis independentes e um termo aleatório, <span class="math inline">\(\epsilon\)</span>, é dado por</p>
-<p><span class="math display">\[\begin{equation*}
-Y_i = \beta_0 + \beta_1X_{1i} + \beta_2X_{2i} + \cdots +
-+ \beta_pX_{pi} + \epsilon_i
-\end{equation*}\]</span></p>
-<p>com <span class="math inline">\(i=1,2,\ldots,n\)</span>. De forma alternativa, tem-se</p>
-<p><span class="math display">\[\begin{equation*}
-Y_i = \beta_0 + \sum_{j=1}^p\beta_j X_{ji} + \epsilon_i
-\end{equation*}\]</span>.</p>
-<p>Uma outra forma de expressar as relações, fazendo <span class="math inline">\(i=1,2,\ldots, n\)</span>, surgem as equações:</p>
-<p><span class="math display">\[\begin{align}
-Y_1 &amp;= \beta_0 + \beta_1 X_{11} + \beta_2 X_{21} + \cdots + \beta_p X_{p1}\\
-Y_2 &amp;= \beta_0 + \beta_1 X_{12} + \beta_2 X_{22} + \cdots + \beta_p X_{p2}\\
-Y_3 &amp;= \beta_0 + \beta_1 X_{13} + \beta_2 X_{23} + \cdots + \beta_p X_{p3}\\
-\vdots &amp; \\
-Y_n &amp;= \beta_0 + \beta_1 X_{1n} + \beta_2 X_{2n} + \cdots + \beta_p X_{pn}
-\end{align}\]</span></p>
-<p>Em notação matricial, esse sistema de equações pode ser expressa por</p>
-<p><span class="math display">\[\begin{equation*}
-Y = X\beta + \epsilon
-\end{equation*}\]</span></p>
-<p>que de forma explícita é</p>
-<p><span class="math display">\[\begin{equation*}
-\begin{bmatrix}
-Y_1\\
-Y_2\\
-\vdots \\
-Y_n
-\end{bmatrix}=
-\begin{bmatrix}
-1 &amp; X_{11} &amp; X_{12} &amp; \cdots &amp; X_{1p} \\
-1 &amp; X_{21} &amp; X_{22} &amp; \cdots &amp; X_{2p} \\
-\vdots &amp;        &amp; \cdots &amp;            \\
-1 &amp; X_{n1} &amp; X_{n2} &amp; \cdots &amp; X_{np} \\
-\end{bmatrix}
-\begin{bmatrix}
-\beta_0\\
-\beta_1\\
-\beta_2\\
-\vdots \\
-\beta_p
-\end{bmatrix}+
-\begin{bmatrix}
-\epsilon_0\\
-\epsilon_1\\
-\epsilon_2\\
-\vdots \\
-\epsilon_p
-\end{bmatrix}
-\end{equation*}\]</span></p>
-<p>Sendo</p>
+<div id="análise-de-resíduos" class="section level1" number="7">
+<h1><span class="header-section-number">Chapter 7</span> Análise de Resíduos</h1>
+<div id="pontos-de-alavancagem" class="section level2" number="7.1">
+<h2><span class="header-section-number">7.1</span> Pontos de alavancagem</h2>
+<p>Os valores de alavancagem representam o peso que cada observação tem sobre o seu valor predito considerando o modelo construído.</p>
 <ul>
-<li>n o número de observações e p a quantidade de variáveis explicativas;</li>
-<li>X uma matriz <span class="math inline">\(n \times (p+1)\)</span>;</li>
-<li>Y um vetor <span class="math inline">\(n \times 1\)</span>;</li>
-<li><span class="math inline">\(\beta\)</span> um vetor <span class="math inline">\((p+1) \times 1\)</span>; e</li>
-<li><span class="math inline">\(\epsilon\)</span> um vetor <span class="math inline">\(n \times 1\)</span>.</li>
+<li>São os elementos da diagonal da matriz de projeção H.</li>
 </ul>
-<p>O problema consiste em obter o modelo ajustado:</p>
-<p><span class="math display">\[\begin{equation*}
-\hat{Y}_i = \hat{\beta}_0 + \hat{\beta}_1X_{1i} + \hat{\beta}_2X_{2i} + \cdots +
-+ \hat{\beta}_p X_{pi}
-\end{equation*}\]</span></p>
-<p>É, para isso, deve-se obter o vetor <span class="math inline">\(\beta\)</span>. Admita-se as seguintes pressuposições:</p>
-<ol style="list-style-type: decimal">
-<li>A variável dependente <span class="math inline">\(Y\)</span> é a função linear das variáveis independentes X.</li>
-<li>Os valores das variáveis independentes são fixos.</li>
-<li>A média dos erros é nula, isto é, <span class="math inline">\(E\left(\epsilon_i\right)=0\)</span>.</li>
-<li>Os erros são homoscedásticos, assim, <span class="math inline">\(V\left(\epsilon_i\right)=\sigma^2\)</span>.</li>
-<li>Os erros são não correlacionados entre si, isto é, <span class="math inline">\(E\left(\epsilon_i\epsilon_j\right)=0\)</span>, para <span class="math inline">\(i \ne j\)</span>.</li>
-<li>Os erros têm distribuição normal.</li>
-</ol>
-<p>Considere algumas consequências:</p>
+<p><span class="math display">\[\begin{align*}
+h_{i}&amp;=H{ii} \\
+h&amp;=diag(H)=diag(X(X^\prime X)^{−1}X^\prime)
+\end{align*}\]</span></p>
 <ul>
-<li><p>Combine (4) e (5) para <span class="math inline">\(E\left(\epsilon^\prime\epsilon\right)=I\sigma^2\)</span>.</p></li>
-<li><p>As pressuposições (1), (2) e (3) são necessárias para demostrar que os estimadores de Mínimos Quadrados são <strong>não tendenciosos</strong>.</p></li>
-<li><p>As pressuposições de (1) a (5) permitem demonstrar que tais estimadores são <strong>não tendenciosos</strong> e de <strong>variância mínima</strong>.</p></li>
-<li><p>A pressuposição (6) é necessária para construção de teste de hipóteses e de intervalos de confiânça para os parãmetros.</p></li>
+<li><p>A soma desses valores é p, ou seja, é o traço da matriz.</p></li>
+<li><p>Em média, o peso de cada observação é p/n. </p></li>
+<li><p>Atenção com as observações que possuem um valor de alavancagem duas vezes superior ao esperado.</p></li>
 </ul>
 </div>
-<div id="estimadores-dos-parâmetros" class="section level2" number="4.2">
-<h2><span class="header-section-number">4.2</span> Estimadores dos parâmetros</h2>
-<p>O Método dos Mínimos Quadrados consiste em adotar como estimativas dos parâmetros os valores que minimiza a soma de quadrados dos desvios.</p>
-<p>O modelo <span class="math inline">\(Y = X\beta+\epsilon\)</span> têm <span class="math inline">\(\epsilon = Y - X\beta\)</span>, então a soma dos quadrados dos desvios é dada por</p>
-<p><span class="math display">\[\begin{align}
-Z &amp;= \epsilon^\prime\epsilon \\
-  &amp;= \left(Y-X\beta\right)^\prime\left(Y-X\beta\right)\\
-  &amp;= Y^\prime Y - Y^\prime X\beta - \beta^\prime X^\prime Y + \beta^\prime X^\prime X \beta
-\end{align}\]</span></p>
-<p>Como <span class="math inline">\(Y^\prime X\beta = \beta^\prime X^\prime Y\)</span> são iguais, então</p>
-<p><span class="math display">\[\begin{align}
-Z &amp;= Y^\prime Y -2 \beta^\prime X^\prime Y + \beta^\prime X^\prime X \beta
-\end{align}\]</span></p>
-<p>A função <span class="math inline">\(Z\)</span> apresenta seu valor mínimo para <span class="math inline">\(\beta\)</span> que tornem a diferencial de <span class="math inline">\(Z\)</span> e igualar a 0 (zero).</p>
+<div id="resíduos-crus-ordinários" class="section level2" number="7.2">
+<h2><span class="header-section-number">7.2</span> Resíduos Crus (ordinários)</h2>
+<p>Os resíduos são a diferença entre valores observados e ajustados.</p>
+<ul>
+<li><p>Estão na escala da própria resposta.</p></li>
+<li><p>O valor esperado é 0.<span class="math inline">\(\sigma^2(I−H)\)</span>.</p></li>
+</ul>
+<pre><code>
+Têm valor esperado igual a zero. Embora seja uma suposição do modelo a independência condicional de y a x por meio do modelo, ao contrário do que se imagina, os resíduos crus não são independentes. 
+
+É por essa razão que não se recomenda aplicar testes de hipótese, como de normalidade, aos resíduos crus, por exemplo.
+</code></pre>
+<span class="math display">\[\begin{aligned}
+\hat{e}_i &amp;= y_i - \hat{y}_i\\
+\hat{e} &amp;= y - \hat{y}\\
+\hat{e} &amp;= y - X\hat{\beta}
+\end{aligned}\]</span>
+</div>
+<div id="resíduos-padronizados" class="section level2" number="7.3">
+<h2><span class="header-section-number">7.3</span> Resíduos padronizados</h2>
+<p>Os resíduos padronizados são resultado da padronização dos resíduos crus. Ao padronizar, ou seja, dividir pela correspondente variância <span class="math inline">\(\sigma^2(I−H)\)</span>, têm-se resíduos com variância unitária. Esses resíduos são chamados também de resíduos internamente studentizados.</p>
 <p><span class="math display">\[\begin{equation*}
-\dfrac{\partial Z}{\partial \beta}= -2\left(\partial\beta^\prime\right) X^\prime Y + \left(\partial\beta^\prime\right) X^\prime X\hat{\beta} + \hat{\beta}^\prime X^\prime X\left(\partial \beta\right) = 0
+\hat{r}_i = \dfrac{\hat{e}_i}{s(\hat{e}_i)} =
+\dfrac{\hat{e}_i}{\hat{\sigma}\sqrt{1-h_{i}}}
 \end{equation*}\]</span></p>
-<p>Uma vez que <span class="math inline">\(\left(\partial\beta^\prime\right)X^\prime X\hat{\beta} =\hat{\beta}^\prime X^\prime X\left(\partial \beta\right)\)</span> tem-se</p>
-<p><span class="math display">\[\begin{align}
-\dfrac{\partial Z}{\partial \beta}&amp;= -2\left(\partial\beta^\prime\right) X^\prime Y + 2\left(\partial\beta^\prime\right) X^\prime X\hat{\beta} \\
-  &amp;=2\left(\partial\beta^\prime\right)\left[X^\prime X\hat{\beta}  -X^\prime Y\right]
-\end{align}\]</span></p>
-<p>Assim, para definir <span class="math inline">\(\hat{\beta}\)</span> faça</p>
+</div>
+<div id="resíduos-studentizados" class="section level2" number="7.4">
+<h2><span class="header-section-number">7.4</span> Resíduos studentizados</h2>
+<p>Os resíduos studentizados são considerados independentes pelo fato de serem resíduos decorrentes de procedimento leave-one-out. Para todos os efeitos, é como se o resíduo padronizado da observação i fosse calculado removendo-se o i-ésimo registro e ajustado o modelo. Não há necessidade de remover uma observação a cada vez para calcular tais resíduos pois tem-se fórmulas apropriadas para isso. Com isso, tem-se que yi e yi(−i) são independentes. Testes de influência consideram esses resíduos.</p>
+<span class="math display">\[\begin{aligned}
+\hat{t}_i &amp;= \dfrac{\hat{e}_i}{s(\hat{e}_i)} =
+\dfrac{\hat{e}_i}{\hat{\sigma}_{-i}\sqrt{1-h_{i}}} =
+\hat{r}_i\left(\frac{n-p-1}{n-p-\hat{r}_i^2} \right)^{1/2}\\
+\hat{\sigma}_{-i}^2 &amp;=
+\dfrac{(n-p)\hat{\sigma}^2-\frac{\hat{e}_i^2}{1-h_{i}}}{(n-1)-p}
+\end{aligned}\]</span>
+</div>
+<div id="estatísticas-baseadas-em-leave-one-out" class="section level2" number="7.5">
+<h2><span class="header-section-number">7.5</span> Estatísticas baseadas em leave-one-out</h2>
+<p>Os n vetores de estimativas dos parâmetros considerando a remoção da i-ésima observação em cada vez são obtidas por</p>
+<span class="math display">\[\begin{aligned}
+\hat{beta}_{(-i)} = \hat{\beta}-\hat{e}_i\frac{(X^\top X)^{-1} x_{i}}{1-h_{i}}.
+\end{aligned}\]</span>
+<p>A partir dessa medida, são obtidos os valores preditos, sem a i-ésima observação também, por</p>
+<span class="math display">\[\begin{aligned}
+\hat{y}_{(-i)} = x_i^\top\hat{\beta}_{(-i)}.
+\end{aligned}\]</span>
+</div>
+<div id="distância-de-cook" class="section level2" number="7.6">
+<h2><span class="header-section-number">7.6</span> Distância de Cook</h2>
+<span class="math display">\[\begin{aligned}
+D_i &amp;= \frac{(\hat{\beta}_{(-i)}-\hat{\beta})^\top (X^\top X)
+(\hat{\beta}_{(-i)}-\hat{\beta})}{p\hat{\sigma}^2}\\ 
+ &amp;= \dfrac{(\hat{y}-\hat{y}_{i(-i)})^\top
+(\hat{y}-\hat{y}_{i(-i)})}{p\hat{\sigma}^2} \\
+ &amp;= \dfrac{1}{p}\cdot\dfrac{h_i}{(1-h_i)}
+ \cdot\dfrac{\hat{e}_i^2}{\hat{\sigma}^2(1-h_i)}\\
+ &amp;= \dfrac{1}{p}\cdot\dfrac{h_i}{(1-h_i)}\cdot r_i^2
+\end{aligned}\]</span>
+</div>
+<div id="dffits" class="section level2" number="7.7">
+<h2><span class="header-section-number">7.7</span> DFfits</h2>
 <p><span class="math display">\[\begin{equation*}
-X^\prime X\hat{\beta}-X^\prime Y = 0
+dffits_i =
+\dfrac{\hat{y}_i-\hat{y}_{i(-i))}}{\hat{\sigma}_{-i}\sqrt{h_i}} =
+\hat{t}_i\left( \dfrac{h_i}{1-h_i} \right )^{1/2}
+
 \end{equation*}\]</span></p>
-<p>Logo,
-<span class="math display">\[\begin{equation*}
-\hat{\beta} = \left(X^\prime X\right)^{-1}X^\prime Y.
-\end{equation*}\]</span></p>
+</div>
+<div id="dfbetas" class="section level2" number="7.8">
+<h2><span class="header-section-number">7.8</span> DFbetas</h2>
+<span class="math display">\[\begin{aligned}
+dbetas_i &amp;=
+\dfrac{\hat{\beta}- \hat{\beta}_{(-i)}}{\hat{\sigma}_{(-i)} \sqrt{\text{diag}((X^\top X)^{-1})}}
+\end{aligned}\]</span>
 
 </div>
 </div>
@@ -323,8 +302,8 @@ X^\prime X\hat{\beta}-X^\prime Y = 0
           </div>
         </div>
       </div>
-<a href="cap3.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="ajuste-do-modelo.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="análise-de-variância.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="exemplos.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

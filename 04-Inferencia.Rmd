@@ -1,7 +1,186 @@
-# Applications
+# Análise de variância
 
-Some _significant_ applications are demonstrated in this chapter.
+## Soma dos Quadrados dos Resíduos - SQRes
 
-## Example one
+Sendo que os valores previstos de $Y$ é dado por 
 
-## Example two
+\begin{equation*}
+\hat{Y}=X\hat{\beta}
+\end{equation*}
+com 
+\begin{equation*}
+\hat{\epsilon} = Y - \hat{Y}
+\end{equation*}
+
+Assim, a Soma dos Quadrado dos Resíduos (SQRes) é dado por;
+
+\begin{align}
+SQRres &= \hat{\epsilon}^ \prime \epsilon \\
+       &= \left(Y-\hat{Y}\right)^\prime \left(Y - \hat{Y}\right)\\
+       &= \left(Y-X\hat{\beta}\right)^\prime \left(Y - X\hat{\beta}\right)\\
+       &=Y^\prime -2\hat{\beta}^\prime X^\prime Y  + \hat{\beta}^\prime X^\prime X \hat{\beta}
+\end{align}
+
+mas
+
+\begin{align}
+X^\prime X \hat{\beta} &= X^\prime Y
+\end{align}
+
+logo
+
+\begin{align}
+SQRes &= Y^\prime Y - \hat{\beta}^\prime X^\prime Y
+\end{align}
+
+## Soma dos Quadrados Total - SQTot
+
+A SQtot pode ser obtida pela operação
+
+\begin{align}
+SQTot &= \sum_{i=1}^n \left(Y_i - \bar{Y}\right)^2 \\
+      &= Y^\prime \left[I - \dfrac{\mu\mu^\prime}{n}\right] \\
+      &= Y^\prime Y - \left[\dfrac{Y^\prime \mu\mu Y}{n}\right]
+\end{align}
+
+onde
+
+\begin{equation*}
+C=\left[\dfrac{Y^\prime \mu\mu Y}{n}\right]
+\end{equation*}
+
+é o fator de correção, logo
+
+\begin{equation*}
+SQtot = Y^\prime Y - C
+\end{equation*}
+
+e o fator de correção pode ser obtido por
+
+\begin{equation*}
+C=\dfrac{\left(\sum_{i=1}^2 Y_i\right)^2}{n}.
+\end{equation*}
+
+## Soma do Quadrado de Regressão - SQReg
+
+A SQReg é dada por 
+
+\begin{align}
+SQReg &=\sum_{i=1}^n\left(\hat{Y}_i - \bar{Y}\right)^2\\
+      &= \sum_{i=1}^n \hat{Y}_i^2 - \dfrac{\left(\sum_{i=1}^2 \hat{Y}_i\right)^2}{n}
+\end{align}
+
+Em forma matricial
+
+\begin{align}
+SQreg &= \hat{Y}^\prime \hat{Y } - \dfrac{Y^\prime \mu \mu^\prime Y}{n} \\
+      &= \hat{Y}^\prime \hat{Y } - C,
+\end{align}
+
+onde 
+
+\begin{equation*}
+C = \dfrac{Y^\prime \mu \mu^\prime Y}{n}
+\end{equation*}.
+
+
+mas 
+
+\begin{equation*}
+\hat{Y} = X\hat{\beta}
+\end{equation*}.
+
+Assim,
+
+\begin{equation*}
+SQReg = \hat{\beta}^\prime X^\prime X\hat{\beta} - C
+\end{equation*},
+
+porém
+
+\begin{equation*}
+X^\prime X \hat{\beta} = X^\prime Y
+\end{equation*}.
+
+Logo
+
+\begin{equation*}
+SQReg = \hat{\beta}^\prime X^\prime Y - C
+\end{equation*}
+
+
+## Tabela de análise de variância
+
+FV        | GL    | SQ                                            | QM    | F
+----------|-------|-----------------------------------------------|-------|---
+regressão | p     | $\hat{\beta}^\prime X^\prime Y - C$           |QMReg  |$\dfrac{QMReg}{QMRes}$
+resíduo   | n-p-1 | $Y^\prime Y - \hat{\beta}^\prime X^\prime Y$  |QMRes  |
+total     | n-1   | $Y^\prime Y - C$                              |       |
+
+É possível demonstrar que se os erros $\epsilon$ tiverem distribuição normal, a razão F possui distribuição **F-snedecor** com **p** e **n-p-1** graus de liberdade se 
+$\beta_1=\beta_2 = \cdots = \beta_p=0$.
+
+Assim, **F** é a estatística teste para
+$$
+\begin{cases}
+H_0:\beta_1=\beta_2 = \cdots = \beta_p=0 \\
+H_1:\exists \quad  \beta_j \neq 0 \quad  \text { para } i = 1,\ldots,p. 
+\end{cases}
+$$
+
+
+## Teste t para os parâmetros do modelo
+
+As estimativas dos desvios-padrão do parâmetros $\beta$, são dadas pelas raízes quadradas dos elementod da diagonal principal da matriz $(X^\prime X)^{-1}\hat{\sigma}^2$, onde $\sigma^2$ é estimado por 
+
+\begin{equation*}
+\hat{sigma}^2 = \frac{QMRes}{n-p-1}= \dfrac{Y^\prime Y - \hat{\beta}^\prime X^\prime Y}{n-p-1}
+\end{equation*}
+
+onde 
+
++ $n$ - número de observações.
+
++ $p$ - número de variáveis dependentes.
+
++ $X$ - matriz de dados.
+
++ $Y$ - dados observados.
+
+Pode-se provar que a estatística 
+
+\begin{equation*}
+t=\dfrac{\hat{\beta}_j - \beta_j}{\hat{\sigma}(\hat{\beta}_j)}
+\end{equation*}
+
+tem distribuição t-Student com $n-p-1$ graus de liberdade e $\hat{\sigma}(\hat{\beta}_j)$ é o desvio-padrão do parametro $\hat{\beta}_j$. Essa estatística **t** pode ser usada no teste de hipótese para cada parâmetro. 
+
+\begin{cases}
+H_0: \beta_j= 0 \\
+H_1: \beta_j \neq 0
+\end{cases}
+
+ou para construir o intervalo de confiança para $\beta_j$ com nível de confiança $\gamma = 1-\alpha$, onde $0 < \alpha < 1$, por meio de
+
+\begin{equation*}
+\hat{\beta}_j - t_{\alpha/2} \hat{\sigma(\hat(\beta)_j)} < \beta_j < \hat{\beta}_j - t_{\alpha/2} \hat{\sigma(\hat(\beta)_j)}
+\end{equation*}
+
+Para ser possível executar o teste e construir o intervalor de confiançã é necessário que os erros $\epsilon_j$ tenha distribuição normal.
+
+## Coeficiente de determinação
+
+O coeficiente de determinação é definida por
+
+\begin{equation*}
+R^2 = \dfrac{SQReg}{SQTot},
+\end{equation*}
+
+com $0 \leq R^2 \leq 1$ que representa a proporção da variação total explicada pelo modelo de regressão linear múltipla. 
+
+Uma propriedade importante do $R^2$ que o seu valor aumenta com o aumento do número de variáveis independentes, assim para comparar dois modelos com número de variáveis independentes e é definido por
+
+\begin{equation*}
+\bar{R}^2 = \dfrac{R^2(n-1)-p}{n-p-1}
+\end{equation*}
+

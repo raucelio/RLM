@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 4 Regressão Linear Múltipla | Regressão Linear Múltipla</title>
+  <title>Chapter 6 Análise de variância | Regressão Linear Múltipla</title>
   <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 4 Regressão Linear Múltipla | Regressão Linear Múltipla" />
+  <meta property="og:title" content="Chapter 6 Análise de variância | Regressão Linear Múltipla" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 4 Regressão Linear Múltipla | Regressão Linear Múltipla" />
+  <meta name="twitter:title" content="Chapter 6 Análise de variância | Regressão Linear Múltipla" />
   
   <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="cap3.html"/>
-<link rel="next" href="ajuste-do-modelo.html"/>
+<link rel="prev" href="ajuste-do-modelo.html"/>
+<link rel="next" href="análise-de-resíduos.html"/>
 <script src="libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -201,119 +201,172 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="regressão-linear-múltipla" class="section level1" number="4">
-<h1><span class="header-section-number">Chapter 4</span> Regressão Linear Múltipla</h1>
-<div id="modelo-de-regressão-linear-múltipla" class="section level2" number="4.1">
-<h2><span class="header-section-number">4.1</span> Modelo de Regressão Linear Múltipla</h2>
-<p>Seja a relação linear entre uma variável dependente Y e p variáveis independentes X. Então, o modelo estatístico de uma regressão linear, nos parâmetros, múltipla com p variáveis independentes e um termo aleatório, <span class="math inline">\(\epsilon\)</span>, é dado por</p>
+<div id="análise-de-variância" class="section level1" number="6">
+<h1><span class="header-section-number">Chapter 6</span> Análise de variância</h1>
+<div id="soma-dos-quadrados-dos-resíduos---sqres" class="section level2" number="6.1">
+<h2><span class="header-section-number">6.1</span> Soma dos Quadrados dos Resíduos - SQRes</h2>
+<p>Sendo que os valores previstos de <span class="math inline">\(Y\)</span> é dado por</p>
 <p><span class="math display">\[\begin{equation*}
-Y_i = \beta_0 + \beta_1X_{1i} + \beta_2X_{2i} + \cdots +
-+ \beta_pX_{pi} + \epsilon_i
-\end{equation*}\]</span></p>
-<p>com <span class="math inline">\(i=1,2,\ldots,n\)</span>. De forma alternativa, tem-se</p>
-<p><span class="math display">\[\begin{equation*}
-Y_i = \beta_0 + \sum_{j=1}^p\beta_j X_{ji} + \epsilon_i
-\end{equation*}\]</span>.</p>
-<p>Uma outra forma de expressar as relações, fazendo <span class="math inline">\(i=1,2,\ldots, n\)</span>, surgem as equações:</p>
-<p><span class="math display">\[\begin{align}
-Y_1 &amp;= \beta_0 + \beta_1 X_{11} + \beta_2 X_{21} + \cdots + \beta_p X_{p1}\\
-Y_2 &amp;= \beta_0 + \beta_1 X_{12} + \beta_2 X_{22} + \cdots + \beta_p X_{p2}\\
-Y_3 &amp;= \beta_0 + \beta_1 X_{13} + \beta_2 X_{23} + \cdots + \beta_p X_{p3}\\
-\vdots &amp; \\
-Y_n &amp;= \beta_0 + \beta_1 X_{1n} + \beta_2 X_{2n} + \cdots + \beta_p X_{pn}
-\end{align}\]</span></p>
-<p>Em notação matricial, esse sistema de equações pode ser expressa por</p>
-<p><span class="math display">\[\begin{equation*}
-Y = X\beta + \epsilon
-\end{equation*}\]</span></p>
-<p>que de forma explícita é</p>
-<p><span class="math display">\[\begin{equation*}
-\begin{bmatrix}
-Y_1\\
-Y_2\\
-\vdots \\
-Y_n
-\end{bmatrix}=
-\begin{bmatrix}
-1 &amp; X_{11} &amp; X_{12} &amp; \cdots &amp; X_{1p} \\
-1 &amp; X_{21} &amp; X_{22} &amp; \cdots &amp; X_{2p} \\
-\vdots &amp;        &amp; \cdots &amp;            \\
-1 &amp; X_{n1} &amp; X_{n2} &amp; \cdots &amp; X_{np} \\
-\end{bmatrix}
-\begin{bmatrix}
-\beta_0\\
-\beta_1\\
-\beta_2\\
-\vdots \\
-\beta_p
-\end{bmatrix}+
-\begin{bmatrix}
-\epsilon_0\\
-\epsilon_1\\
-\epsilon_2\\
-\vdots \\
-\epsilon_p
-\end{bmatrix}
-\end{equation*}\]</span></p>
-<p>Sendo</p>
-<ul>
-<li>n o número de observações e p a quantidade de variáveis explicativas;</li>
-<li>X uma matriz <span class="math inline">\(n \times (p+1)\)</span>;</li>
-<li>Y um vetor <span class="math inline">\(n \times 1\)</span>;</li>
-<li><span class="math inline">\(\beta\)</span> um vetor <span class="math inline">\((p+1) \times 1\)</span>; e</li>
-<li><span class="math inline">\(\epsilon\)</span> um vetor <span class="math inline">\(n \times 1\)</span>.</li>
-</ul>
-<p>O problema consiste em obter o modelo ajustado:</p>
-<p><span class="math display">\[\begin{equation*}
-\hat{Y}_i = \hat{\beta}_0 + \hat{\beta}_1X_{1i} + \hat{\beta}_2X_{2i} + \cdots +
-+ \hat{\beta}_p X_{pi}
-\end{equation*}\]</span></p>
-<p>É, para isso, deve-se obter o vetor <span class="math inline">\(\beta\)</span>. Admita-se as seguintes pressuposições:</p>
-<ol style="list-style-type: decimal">
-<li>A variável dependente <span class="math inline">\(Y\)</span> é a função linear das variáveis independentes X.</li>
-<li>Os valores das variáveis independentes são fixos.</li>
-<li>A média dos erros é nula, isto é, <span class="math inline">\(E\left(\epsilon_i\right)=0\)</span>.</li>
-<li>Os erros são homoscedásticos, assim, <span class="math inline">\(V\left(\epsilon_i\right)=\sigma^2\)</span>.</li>
-<li>Os erros são não correlacionados entre si, isto é, <span class="math inline">\(E\left(\epsilon_i\epsilon_j\right)=0\)</span>, para <span class="math inline">\(i \ne j\)</span>.</li>
-<li>Os erros têm distribuição normal.</li>
-</ol>
-<p>Considere algumas consequências:</p>
-<ul>
-<li><p>Combine (4) e (5) para <span class="math inline">\(E\left(\epsilon^\prime\epsilon\right)=I\sigma^2\)</span>.</p></li>
-<li><p>As pressuposições (1), (2) e (3) são necessárias para demostrar que os estimadores de Mínimos Quadrados são <strong>não tendenciosos</strong>.</p></li>
-<li><p>As pressuposições de (1) a (5) permitem demonstrar que tais estimadores são <strong>não tendenciosos</strong> e de <strong>variância mínima</strong>.</p></li>
-<li><p>A pressuposição (6) é necessária para construção de teste de hipóteses e de intervalos de confiânça para os parãmetros.</p></li>
-</ul>
-</div>
-<div id="estimadores-dos-parâmetros" class="section level2" number="4.2">
-<h2><span class="header-section-number">4.2</span> Estimadores dos parâmetros</h2>
-<p>O Método dos Mínimos Quadrados consiste em adotar como estimativas dos parâmetros os valores que minimiza a soma de quadrados dos desvios.</p>
-<p>O modelo <span class="math inline">\(Y = X\beta+\epsilon\)</span> têm <span class="math inline">\(\epsilon = Y - X\beta\)</span>, então a soma dos quadrados dos desvios é dada por</p>
-<p><span class="math display">\[\begin{align}
-Z &amp;= \epsilon^\prime\epsilon \\
-  &amp;= \left(Y-X\beta\right)^\prime\left(Y-X\beta\right)\\
-  &amp;= Y^\prime Y - Y^\prime X\beta - \beta^\prime X^\prime Y + \beta^\prime X^\prime X \beta
-\end{align}\]</span></p>
-<p>Como <span class="math inline">\(Y^\prime X\beta = \beta^\prime X^\prime Y\)</span> são iguais, então</p>
-<p><span class="math display">\[\begin{align}
-Z &amp;= Y^\prime Y -2 \beta^\prime X^\prime Y + \beta^\prime X^\prime X \beta
-\end{align}\]</span></p>
-<p>A função <span class="math inline">\(Z\)</span> apresenta seu valor mínimo para <span class="math inline">\(\beta\)</span> que tornem a diferencial de <span class="math inline">\(Z\)</span> e igualar a 0 (zero).</p>
-<p><span class="math display">\[\begin{equation*}
-\dfrac{\partial Z}{\partial \beta}= -2\left(\partial\beta^\prime\right) X^\prime Y + \left(\partial\beta^\prime\right) X^\prime X\hat{\beta} + \hat{\beta}^\prime X^\prime X\left(\partial \beta\right) = 0
-\end{equation*}\]</span></p>
-<p>Uma vez que <span class="math inline">\(\left(\partial\beta^\prime\right)X^\prime X\hat{\beta} =\hat{\beta}^\prime X^\prime X\left(\partial \beta\right)\)</span> tem-se</p>
-<p><span class="math display">\[\begin{align}
-\dfrac{\partial Z}{\partial \beta}&amp;= -2\left(\partial\beta^\prime\right) X^\prime Y + 2\left(\partial\beta^\prime\right) X^\prime X\hat{\beta} \\
-  &amp;=2\left(\partial\beta^\prime\right)\left[X^\prime X\hat{\beta}  -X^\prime Y\right]
-\end{align}\]</span></p>
-<p>Assim, para definir <span class="math inline">\(\hat{\beta}\)</span> faça</p>
-<p><span class="math display">\[\begin{equation*}
-X^\prime X\hat{\beta}-X^\prime Y = 0
-\end{equation*}\]</span></p>
-<p>Logo,
+\hat{Y}=X\hat{\beta}
+\end{equation*}\]</span>
+com
 <span class="math display">\[\begin{equation*}
-\hat{\beta} = \left(X^\prime X\right)^{-1}X^\prime Y.
+\hat{\epsilon} = Y - \hat{Y}
+\end{equation*}\]</span></p>
+<p>Assim, a Soma dos Quadrado dos Resíduos (SQRes) é dado por;</p>
+<p><span class="math display">\[\begin{align}
+SQRres &amp;= \hat{\epsilon}^ \prime \epsilon \\
+       &amp;= \left(Y-\hat{Y}\right)^\prime \left(Y - \hat{Y}\right)\\
+       &amp;= \left(Y-X\hat{\beta}\right)^\prime \left(Y - X\hat{\beta}\right)\\
+       &amp;=Y^\prime -2\hat{\beta}^\prime X^\prime Y  + \hat{\beta}^\prime X^\prime X \hat{\beta}
+\end{align}\]</span></p>
+<p>mas</p>
+<p><span class="math display">\[\begin{align}
+X^\prime X \hat{\beta} &amp;= X^\prime Y
+\end{align}\]</span></p>
+<p>logo</p>
+<p><span class="math display">\[\begin{align}
+SQRes &amp;= Y^\prime Y - \hat{\beta}^\prime X^\prime Y
+\end{align}\]</span></p>
+</div>
+<div id="soma-dos-quadrados-total---sqtot" class="section level2" number="6.2">
+<h2><span class="header-section-number">6.2</span> Soma dos Quadrados Total - SQTot</h2>
+<p>A SQtot pode ser obtida pela operação</p>
+<p><span class="math display">\[\begin{align}
+SQTot &amp;= \sum_{i=1}^n \left(Y_i - \bar{Y}\right)^2 \\
+      &amp;= Y^\prime \left[I - \dfrac{\mu\mu^\prime}{n}\right] \\
+      &amp;= Y^\prime Y - \left[\dfrac{Y^\prime \mu\mu Y}{n}\right]
+\end{align}\]</span></p>
+<p>onde</p>
+<p><span class="math display">\[\begin{equation*}
+C=\left[\dfrac{Y^\prime \mu\mu Y}{n}\right]
+\end{equation*}\]</span></p>
+<p>é o fator de correção, logo</p>
+<p><span class="math display">\[\begin{equation*}
+SQtot = Y^\prime Y - C
+\end{equation*}\]</span></p>
+<p>e o fator de correção pode ser obtido por</p>
+<p><span class="math display">\[\begin{equation*}
+C=\dfrac{\left(\sum_{i=1}^2 Y_i\right)^2}{n}.
+\end{equation*}\]</span></p>
+</div>
+<div id="soma-do-quadrado-de-regressão---sqreg" class="section level2" number="6.3">
+<h2><span class="header-section-number">6.3</span> Soma do Quadrado de Regressão - SQReg</h2>
+<p>A SQReg é dada por</p>
+<p><span class="math display">\[\begin{align}
+SQReg &amp;=\sum_{i=1}^n\left(\hat{Y}_i - \bar{Y}\right)^2\\
+      &amp;= \sum_{i=1}^n \hat{Y}_i^2 - \dfrac{\left(\sum_{i=1}^2 \hat{Y}_i\right)^2}{n}
+\end{align}\]</span></p>
+<p>Em forma matricial</p>
+<p><span class="math display">\[\begin{align}
+SQreg &amp;= \hat{Y}^\prime \hat{Y } - \dfrac{Y^\prime \mu \mu^\prime Y}{n} \\
+      &amp;= \hat{Y}^\prime \hat{Y } - C,
+\end{align}\]</span></p>
+<p>onde</p>
+<p><span class="math display">\[\begin{equation*}
+C = \dfrac{Y^\prime \mu \mu^\prime Y}{n}
+\end{equation*}\]</span>.</p>
+<p>mas</p>
+<p><span class="math display">\[\begin{equation*}
+\hat{Y} = X\hat{\beta}
+\end{equation*}\]</span>.</p>
+<p>Assim,</p>
+<p><span class="math display">\[\begin{equation*}
+SQReg = \hat{\beta}^\prime X^\prime X\hat{\beta} - C
+\end{equation*}\]</span>,</p>
+<p>porém</p>
+<p><span class="math display">\[\begin{equation*}
+X^\prime X \hat{\beta} = X^\prime Y
+\end{equation*}\]</span>.</p>
+<p>Logo</p>
+<p><span class="math display">\[\begin{equation*}
+SQReg = \hat{\beta}^\prime X^\prime Y - C
+\end{equation*}\]</span></p>
+</div>
+<div id="tabela-de-análise-de-variância" class="section level2" number="6.4">
+<h2><span class="header-section-number">6.4</span> Tabela de análise de variância</h2>
+<table>
+<thead>
+<tr class="header">
+<th>FV</th>
+<th>GL</th>
+<th>SQ</th>
+<th>QM</th>
+<th>F</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>regressão</td>
+<td>p</td>
+<td><span class="math inline">\(\hat{\beta}^\prime X^\prime Y - C\)</span></td>
+<td>QMReg</td>
+<td><span class="math inline">\(\dfrac{QMReg}{QMRes}\)</span></td>
+</tr>
+<tr class="even">
+<td>resíduo</td>
+<td>n-p-1</td>
+<td><span class="math inline">\(Y^\prime Y - \hat{\beta}^\prime X^\prime Y\)</span></td>
+<td>QMRes</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>total</td>
+<td>n-1</td>
+<td><span class="math inline">\(Y^\prime Y - C\)</span></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>É possível demonstrar que se os erros <span class="math inline">\(\epsilon\)</span> tiverem distribuição normal, a razão F possui distribuição <strong>F-snedecor</strong> com <strong>p</strong> e <strong>n-p-1</strong> graus de liberdade se
+<span class="math inline">\(\beta_1=\beta_2 = \cdots = \beta_p=0\)</span>.</p>
+<p>Assim, <strong>F</strong> é a estatística teste para
+<span class="math display">\[
+\begin{cases}
+H_0:\beta_1=\beta_2 = \cdots = \beta_p=0 \\
+H_1:\exists \quad  \beta_j \neq 0 \quad  \text { para } i = 1,\ldots,p. 
+\end{cases}
+\]</span></p>
+</div>
+<div id="teste-t-para-os-parâmetros-do-modelo" class="section level2" number="6.5">
+<h2><span class="header-section-number">6.5</span> Teste t para os parâmetros do modelo</h2>
+<p>As estimativas dos desvios-padrão do parâmetros <span class="math inline">\(\beta\)</span>, são dadas pelas raízes quadradas dos elementod da diagonal principal da matriz <span class="math inline">\((X^\prime X)^{-1}\hat{\sigma}^2\)</span>, onde <span class="math inline">\(\sigma^2\)</span> é estimado por</p>
+<p><span class="math display">\[\begin{equation*}
+\hat{sigma}^2 = \frac{QMRes}{n-p-1}= \dfrac{Y^\prime Y - \hat{\beta}^\prime X^\prime Y}{n-p-1}
+\end{equation*}\]</span></p>
+<p>onde</p>
+<ul>
+<li><p><span class="math inline">\(n\)</span> - número de observações.</p></li>
+<li><p><span class="math inline">\(p\)</span> - número de variáveis dependentes.</p></li>
+<li><p><span class="math inline">\(X\)</span> - matriz de dados.</p></li>
+<li><p><span class="math inline">\(Y\)</span> - dados observados.</p></li>
+</ul>
+<p>Pode-se provar que a estatística</p>
+<p><span class="math display">\[\begin{equation*}
+t=\dfrac{\hat{\beta}_j - \beta_j}{\hat{\sigma}(\hat{\beta}_j)}
+\end{equation*}\]</span></p>
+<p>tem distribuição t-Student com <span class="math inline">\(n-p-1\)</span> graus de liberdade e <span class="math inline">\(\hat{\sigma}(\hat{\beta}_j)\)</span> é o desvio-padrão do parametro <span class="math inline">\(\hat{\beta}_j\)</span>. Essa estatística <strong>t</strong> pode ser usada no teste de hipótese para cada parâmetro.</p>
+<span class="math display">\[\begin{cases}
+H_0: \beta_j= 0 \\
+H_1: \beta_j \neq 0
+\end{cases}\]</span>
+<p>ou para construir o intervalo de confiança para <span class="math inline">\(\beta_j\)</span> com nível de confiança <span class="math inline">\(\gamma = 1-\alpha\)</span>, onde <span class="math inline">\(0 &lt; \alpha &lt; 1\)</span>, por meio de</p>
+<p><span class="math display">\[\begin{equation*}
+\hat{\beta}_j - t_{\alpha/2} \hat{\sigma(\hat(\beta)_j)} &lt; \beta_j &lt; \hat{\beta}_j - t_{\alpha/2} \hat{\sigma(\hat(\beta)_j)}
+\end{equation*}\]</span></p>
+<p>Para ser possível executar o teste e construir o intervalor de confiançã é necessário que os erros <span class="math inline">\(\epsilon_j\)</span> tenha distribuição normal.</p>
+</div>
+<div id="coeficiente-de-determinação" class="section level2" number="6.6">
+<h2><span class="header-section-number">6.6</span> Coeficiente de determinação</h2>
+<p>O coeficiente de determinação é definida por</p>
+<p><span class="math display">\[\begin{equation*}
+R^2 = \dfrac{SQReg}{SQTot},
+\end{equation*}\]</span></p>
+<p>com <span class="math inline">\(0 \leq R^2 \leq 1\)</span> que representa a proporção da variação total explicada pelo modelo de regressão linear múltipla.</p>
+<p>Uma propriedade importante do <span class="math inline">\(R^2\)</span> que o seu valor aumenta com o aumento do número de variáveis independentes, assim para comparar dois modelos com número de variáveis independentes e é definido por</p>
+<p><span class="math display">\[\begin{equation*}
+\bar{R}^2 = \dfrac{R^2(n-1)-p}{n-p-1}
 \end{equation*}\]</span></p>
 
 </div>
@@ -323,8 +376,8 @@ X^\prime X\hat{\beta}-X^\prime Y = 0
           </div>
         </div>
       </div>
-<a href="cap3.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="ajuste-do-modelo.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="ajuste-do-modelo.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="análise-de-resíduos.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

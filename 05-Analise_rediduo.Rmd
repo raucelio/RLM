@@ -1,3 +1,111 @@
-# Final Words
+# Análise de Resíduos
 
-We have finished a nice book.
+
+## Pontos de alavancagem
+
+Os valores de alavancagem representam o peso que cada observação tem sobre o seu valor predito considerando o modelo construído. 
+
++ São os elementos da diagonal da matriz de projeção H. 
+
+\begin{align*}
+h_{i}&=H{ii} \\
+h&=diag(H)=diag(X(X^\prime X)^{−1}X^\prime)
+\end{align*}
+
++ A soma desses valores é p, ou seja, é o traço da matriz. 
+
++ Em média, o peso de cada observação é p/n. 
+
++ Atenção com as observações que possuem um valor de alavancagem duas vezes superior ao esperado.
+
+
+## Resíduos Crus (ordinários)
+
+Os resíduos são a diferença entre valores observados e ajustados. 
+
++ Estão na escala da própria resposta. 
+
++ O valor esperado é 0.$\sigma^2(I−H)$. 
+
+
+```
+
+Têm valor esperado igual a zero. Embora seja uma suposição do modelo a independência condicional de y a x por meio do modelo, ao contrário do que se imagina, os resíduos crus não são independentes. 
+
+É por essa razão que não se recomenda aplicar testes de hipótese, como de normalidade, aos resíduos crus, por exemplo.
+
+```
+
+\begin{aligned}
+\hat{e}_i &= y_i - \hat{y}_i\\
+\hat{e} &= y - \hat{y}\\
+\hat{e} &= y - X\hat{\beta}
+\end{aligned}
+
+
+## Resíduos padronizados
+
+Os resíduos padronizados são resultado da padronização dos resíduos crus. Ao padronizar, ou seja, dividir pela correspondente variância $\sigma^2(I−H)$, têm-se resíduos com variância unitária. Esses resíduos são chamados também de resíduos internamente studentizados.
+
+\begin{equation*}
+\hat{r}_i = \dfrac{\hat{e}_i}{s(\hat{e}_i)} =
+\dfrac{\hat{e}_i}{\hat{\sigma}\sqrt{1-h_{i}}}
+\end{equation*}
+
+## Resíduos studentizados
+
+Os resíduos studentizados são considerados independentes pelo fato de serem resíduos decorrentes de procedimento leave-one-out. Para todos os efeitos, é como se o resíduo padronizado da observação i fosse calculado removendo-se o i-ésimo registro e ajustado o modelo. Não há necessidade de remover uma observação a cada vez para calcular tais resíduos pois tem-se fórmulas apropriadas para isso. Com isso, tem-se que yi e yi(−i) são independentes. Testes de influência consideram esses resíduos.
+
+\begin{aligned}
+\hat{t}_i &= \dfrac{\hat{e}_i}{s(\hat{e}_i)} =
+\dfrac{\hat{e}_i}{\hat{\sigma}_{-i}\sqrt{1-h_{i}}} =
+\hat{r}_i\left(\frac{n-p-1}{n-p-\hat{r}_i^2} \right)^{1/2}\\
+\hat{\sigma}_{-i}^2 &=
+\dfrac{(n-p)\hat{\sigma}^2-\frac{\hat{e}_i^2}{1-h_{i}}}{(n-1)-p}
+\end{aligned}
+
+## Estatísticas baseadas em leave-one-out
+
+Os n vetores de estimativas dos parâmetros considerando a remoção da i-ésima observação em cada vez são obtidas por
+
+\begin{aligned}
+\hat{beta}_{(-i)} = \hat{\beta}-\hat{e}_i\frac{(X^\top X)^{-1} x_{i}}{1-h_{i}}.
+\end{aligned}
+
+A partir dessa medida, são obtidos os valores preditos, sem a i-ésima observação também, por
+
+\begin{aligned}
+\hat{y}_{(-i)} = x_i^\top\hat{\beta}_{(-i)}.
+\end{aligned}
+
+## Distância de Cook
+
+\begin{aligned}
+D_i &= \frac{(\hat{\beta}_{(-i)}-\hat{\beta})^\top (X^\top X)
+(\hat{\beta}_{(-i)}-\hat{\beta})}{p\hat{\sigma}^2}\\ 
+ &= \dfrac{(\hat{y}-\hat{y}_{i(-i)})^\top
+(\hat{y}-\hat{y}_{i(-i)})}{p\hat{\sigma}^2} \\
+ &= \dfrac{1}{p}\cdot\dfrac{h_i}{(1-h_i)}
+ \cdot\dfrac{\hat{e}_i^2}{\hat{\sigma}^2(1-h_i)}\\
+ &= \dfrac{1}{p}\cdot\dfrac{h_i}{(1-h_i)}\cdot r_i^2
+\end{aligned}
+
+## DFfits
+
+
+\begin{equation*}
+dffits_i =
+\dfrac{\hat{y}_i-\hat{y}_{i(-i))}}{\hat{\sigma}_{-i}\sqrt{h_i}} =
+\hat{t}_i\left( \dfrac{h_i}{1-h_i} \right )^{1/2}
+
+\end{equation*}
+
+## DFbetas
+
+\begin{aligned}
+dbetas_i &=
+\dfrac{\hat{\beta}- \hat{\beta}_{(-i)}}{\hat{\sigma}_{(-i)} \sqrt{\text{diag}((X^\top X)^{-1})}}
+\end{aligned}
+
+
+

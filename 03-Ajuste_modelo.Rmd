@@ -1,3 +1,2 @@
-# Methods
+# Ajuste do modelo
 
-We describe our methods in this chapter.
